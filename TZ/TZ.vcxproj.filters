@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="SW">
+      <UniqueIdentifier>{69cc7a74-90a6-4f9d-9715-49e6d79aca88}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SelbaWard\GallerySprite.cpp">
+      <Filter>SW</Filter>
+    </ClCompile>
+    <ClCompile Include="SelbaWard\Line.cpp">
+      <Filter>SW</Filter>
+    </ClCompile>
+    <ClCompile Include="SelbaWard\NinePatch.cpp">
+      <Filter>SW</Filter>
+    </ClCompile>
+    <ClCompile Include="SelbaWard\PieChart.cpp">
+      <Filter>SW</Filter>
+    </ClCompile>
+    <ClCompile Include="SelbaWard\PixelDisplay.cpp">
+      <Filter>SW</Filter>
+    </ClCompile>
+    <ClCompile Include="SelbaWard\ProgressBar.cpp">
+      <Filter>SW</Filter>
+    </ClCompile>
+    <ClCompile Include="SelbaWard\Ring.cpp">
+      <Filter>SW</Filter>
+    </ClCompile>
+    <ClCompile Include="SelbaWard\SpinningCard.cpp">
+      <Filter>SW</Filter>
+    </ClCompile>
+    <ClCompile Include="SelbaWard\Spline.cpp">
+      <Filter>SW</Filter>
+    </ClCompile>
+    <ClCompile Include="SelbaWard\Sprite3d.cpp">
+      <Filter>SW</Filter>
+    </ClCompile>
+    <ClCompile Include="SelbaWard\Starfield.cpp">
+      <Filter>SW</Filter>
+    </ClCompile>
+    <ClCompile Include="SelbaWard\BitmapFont.cpp">
+      <Filter>SW</Filter>
+    </ClCompile>
+    <ClCompile Include="SelbaWard\BitmapText.cpp">
+      <Filter>SW</Filter>
+    </ClCompile>
+    <ClCompile Include="SelbaWard\ConsoleScreen.cpp">
+      <Filter>SW</Filter>
+    </ClCompile>
+    <ClCompile Include="SelbaWard\ConsoleScreenOld.cpp">
+      <Filter>SW</Filter>
+    </ClCompile>
+    <ClCompile Include="SelbaWard\Crosshair.cpp">
+      <Filter>SW</Filter>
+    </ClCompile>
+    <ClCompile Include="SelbaWard\ElasticSprite.cpp">
+      <Filter>SW</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SelbaWard.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\Exception.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\GallerySprite.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\Line.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\NinePatch.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\PaletteEnums.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\PieChart.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\PixelDisplay.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\ProgressBar.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\Ring.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\SpinningCard.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\Spline.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\Sprite3d.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\Starfield.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\TileMap.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\BitmapFont.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\BitmapText.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\Common.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\ConsoleScreen.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\ConsoleScreenOld.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\Crosshair.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+    <ClInclude Include="SelbaWard\ElasticSprite.hpp">
+      <Filter>SW</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SelbaWard\TileMap.inl">
+      <Filter>SW</Filter>
+    </None>
+  </ItemGroup>
+</Project>
