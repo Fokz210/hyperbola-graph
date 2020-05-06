@@ -16,6 +16,9 @@
     <Filter Include="SW">
       <UniqueIdentifier>{69cc7a74-90a6-4f9d-9715-49e6d79aca88}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Menu">
+      <UniqueIdentifier>{6e559d9a-4ebe-4303-9420-8678adbaa475}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -71,6 +74,36 @@
     </ClCompile>
     <ClCompile Include="SelbaWard\ElasticSprite.cpp">
       <Filter>SW</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\sprite_button.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\sprite_window.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\text_button.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\window_manager.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\abstract_window.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\cursor_handler.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\pch.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\rectangular_window.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="horisontal_slider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vertical_slider.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,10 +173,52 @@
     <ClInclude Include="SelbaWard\ElasticSprite.hpp">
       <Filter>SW</Filter>
     </ClInclude>
+    <ClInclude Include="Menu\rectangular_window.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\sprite_button.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\sprite_window.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\text_button.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\window_manager.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\abstract_window.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\cursor_handler.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\Menu.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\pch.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Fokz210\game_engine\SFML_Menu\framework.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="horisontal_slider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vertical_slider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="SelbaWard\TileMap.inl">
       <Filter>SW</Filter>
+    </None>
+    <None Include="Menu\Doxygen">
+      <Filter>Menu</Filter>
+    </None>
+    <None Include="Menu\Doxygen.bak">
+      <Filter>Menu</Filter>
     </None>
   </ItemGroup>
 </Project>

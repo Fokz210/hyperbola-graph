@@ -1,15 +1,23 @@
-#include <cmath>
+﻿#include <cmath>
 #include <SFML/Graphics.hpp>
 #include "SelbaWard.hpp"
+#include "horisontal_slider.h"
+#include "vertical_slider.h"
+#include "Menu/Menu.h"
+
+#define sqr(a)  ((a) * (a))
+
+const int WINDOW_WIDTH = 1366;
+const int WINDOW_HEIGHT = 768;
 
 class hyperbola
 {
 public:
 
-	hyperbola (float a, float b, float scale = 100.f, float offset_x = 400.f, float offset_y = 300.f, float range = 300.f) :
+	hyperbola (float a, float b, float scale = 1.f, float offset_x = 400.f, float offset_y = 300.f, float range = 200.f) :
 		range_ (range),
-		first (range),
-		second (range),
+		first (range * 10),
+		second (range * 10),
 		a_ (a),
 		b_ (b),
 		offset_x_ (offset_x),
@@ -20,19 +28,26 @@ public:
 
 	void update ()
 	{
-		first.removeVertices (0, range_);
-		second.removeVertices (0, range_);
 
-		for (float x = a_ + range_ / scale_; x > a_; x -= 0.01)
+		int i = 0;
+		for (float x = a_ + range_ / scale_; x > a_; x -= 1 / scale_)
 		{
-			first.addVertex (sf::Vector2f (offset_x_ + x * scale_, offset_y_ + scale_ * sqrtf (((x * x) / (a_ * a_) - 1) / (b_ * b_))));
-			second.addVertex (sf::Vector2f (offset_x_ - x * scale_, offset_y_ + scale_ * sqrtf (((x * x) / (a_ * a_) - 1) / (b_ * b_))));
+			float sqrt = sqrtf (((x * x) / (a_ * a_) - 1) * (b_ * b_));
+
+			first[i] = sf::Vector2f (offset_x_ + x * scale_, offset_y_ + scale_ * sqrt);
+			second[i] = sf::Vector2f (offset_x_ - x * scale_, offset_y_ + scale_ * sqrt);
+
+			i++;
 		}
 
-		for (float x = a_; x < a_ + range_ / scale_; x += 0.01)
+		for (float x = a_; x < a_ + range_ / scale_; x += 1 / scale_)
 		{
-			first.addVertex (sf::Vector2f (offset_x_ + x * scale_, offset_y_ - scale_ * sqrtf (((x * x) / (a_ * a_) - 1) / (b_ * b_))));
-			second.addVertex (sf::Vector2f (offset_x_ - x * scale_, offset_y_ - scale_ * sqrtf (((x * x) / (a_ * a_) - 1) / (b_ * b_))));
+			float sqrt = sqrtf (((x * x) / (a_ * a_) - 1) * (b_ * b_));
+
+			first[i] = sf::Vector2f (offset_x_ + x * scale_, offset_y_ - scale_ * sqrt);
+			second[i] = sf::Vector2f (offset_x_ - x * scale_, offset_y_ - scale_ * sqrt);
+
+			i++;
 		}
 
 		first.update ();
@@ -84,15 +99,16 @@ public:
 		offset_y_ (offset_y),
 		shape_ (polygons)
 	{
-		//shape_.setClosed (true);
+		shape_.setClosed (true);
 	}
 
 	void update ()
 	{
-		shape_.removeVertices (0, polygons_);
-
-		for (float angle = 0; angle < 3.1415f * 2; angle += 3.1415f * 2.f / polygons_)
-			shape_.addVertex (sf::Vector2f (offset_x_ + cosf (angle) * radius_x_, offset_y_ +  sinf (angle) * radius_y_));
+		int i = 0;
+		for (float angle = 0; angle < 3.1415f * 2 && i < 100; angle += 3.1415f * 2.f / polygons_)
+		{
+			shape_[i++] = sf::Vector2f (offset_x_ + cosf (angle) * radius_x_, offset_y_ + sinf (angle) * radius_y_);
+		}
 		shape_.update ();
 	}
 
@@ -120,39 +136,248 @@ protected:
 	sw::Spline shape_;
 };
 
+// ----------------------------------------------------------------------------\
+//						Изначально задается:                                   |
+//					A_el - большая полуось эллипса							   |
+//				    B_el - малая полуось эллипса                               |
+//																			   |
+//						Из них рассчитываются переменные:                      |
+//					C = (A_el ^ 2 - B_el ^ 2) ^ (1/2) - фокус				   |
+//																			   |
+//					A_hyp = C ^ 2 / A_el - большая полуось гиперболы           |
+//					B_hyp = C ^ 2 - A_hyp ^ 2 - малая полуось гиперболы        |
+//																			   |
+//					E_el = C / A_el - эксцентриситет эллипса				   |
+//					E_hyp = C / A_hyp - эксцентриситет гиперболы			   |
+// ----------------------------------------------------------------------------/
+
 int main ()
 {
-	sf::RenderWindow window (sf::VideoMode (800, 600), "Test");
+	float dot_radius = 5.f;
+	float thickness = 2.f;
 
-	hyperbola hyp (1, 1);
-	hyp.set_color (sf::Color::Blue);
-	hyp.set_thickness (5.f);
-	hyp.update ();
+	sf::RenderWindow window (sf::VideoMode (WINDOW_WIDTH, WINDOW_HEIGHT), "Test");
 
-	ellipse el (200, 100);
-	el.set_color (sf::Color::Black);
-	el.set_position (sf::Vector2f (400, 300));
-	el.set_thickness (5.f);
+	hyperbola hyp (1, 1, 1, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, WINDOW_WIDTH / 2);
+	hyp.set_color (sf::Color::Black);
+	hyp.set_thickness (thickness);
 
-	el.update ();
+	ellipse el (200, 200);
+	el.set_color (sf::Color (25, 118, 194));
+	el.set_position (sf::Vector2f (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
+	el.set_thickness (thickness);
+
+	float A_el = 100;
+	float B_el = 100;
+	float C = sqrtf (sqr (A_el) - sqr (B_el));
+
+	float A_hyp = sqr (C) / A_el;
+	float B_hyp = sqrtf (sqr (C) - sqr (A_hyp));
 	
+	float dot_x = ((A_el * A_hyp) * sqrtf (sqr (B_el) + sqr (B_hyp))) / sqrtf (sqr (A_el * B_hyp) + sqr (B_el * A_hyp));
+	float dot_y = (B_el * sqrtf (sqr (A_el) - sqr (dot_x))) / A_el;
+
+	float r_circ = sqrt (sqr (dot_x) + sqr (dot_y));
+
+	sf::CircleShape shape (r_circ);
+	shape.setOutlineColor (sf::Color (235, 122, 40));
+	shape.setFillColor (sf::Color::Transparent);
+	shape.setOutlineThickness (thickness);
+
+	shape.setPointCount (100);
+
+	window.setFramerateLimit (60);
+
+	sf::CircleShape cross1, cross2, cross3, cross4;
+
+	cross1.setRadius (dot_radius);
+	cross2.setRadius (dot_radius);
+	cross3.setRadius (dot_radius);
+	cross4.setRadius (dot_radius);
+
+	cross1.setOrigin (sf::Vector2f (dot_radius, dot_radius));
+	cross2.setOrigin (sf::Vector2f (dot_radius, dot_radius));
+	cross3.setOrigin (sf::Vector2f (dot_radius, dot_radius));
+	cross4.setOrigin (sf::Vector2f (dot_radius, dot_radius));
+
+	cross1.setFillColor (sf::Color::Red);
+	cross2.setFillColor (sf::Color::Red);
+	cross3.setFillColor (sf::Color::Red);
+	cross4.setFillColor (sf::Color::Red);
+
+	float E_el = 0;
+	float E_hyp = 0;
+	float S_el = 0;
+	float S_c = 0;
+
+	sf::Font font;
+	font.loadFromFile ("font.ttf");
+
+	sf::Text E_el_text;
+	E_el_text.setFont (font);
+	E_el_text.setCharacterSize (20);
+	E_el_text.setFillColor (sf::Color::Black);
+
+	sf::Text E_hyp_text(E_el_text), S_el_text (E_el_text), S_c_text (E_el_text), R_c_text (E_el_text);
+
+	E_el_text.setPosition (10, 10);
+	S_el_text.setPosition (10, 30);
+	E_hyp_text.setPosition (WINDOW_WIDTH - 150, 10);
+	S_c_text.setPosition (10, WINDOW_HEIGHT - 30);
+	R_c_text.setPosition (10, WINDOW_HEIGHT - 50);
+
+	char buffer[32] = "";
+
+	sf::RectangleShape X_axis, Y_axis;
+	X_axis.setFillColor (sf::Color (214, 214, 214));
+	Y_axis.setFillColor (sf::Color (214, 214, 214));
+
+	float slider_x = WINDOW_WIDTH / 2 + A_el;
+	sf::RectangleShape slider_shape;
+	slider_shape.setSize (sf::Vector2f (50.f, 50.f));
+	horisontal_slider h_slider (slider_shape, slider_x, WINDOW_HEIGHT / 2);
+
+	float slider_y = WINDOW_HEIGHT / 2 + B_el;
+	vertical_slider v_slider (slider_shape, WINDOW_WIDTH / 2, slider_y);
+
+	float slider_x2 = WINDOW_WIDTH / 2 - A_el;
+	horisontal_slider h_slider2 (slider_shape, slider_x2, WINDOW_HEIGHT / 2);
+
+	float slider_y2 = WINDOW_HEIGHT / 2 - B_el;
+	vertical_slider v_slider2 (slider_shape, WINDOW_WIDTH / 2, slider_y2);
+
+	window_manager w_manager;
+	w_manager.add_window (&h_slider);
+	w_manager.add_window (&v_slider);
+	w_manager.add_window (&v_slider2);
+	w_manager.add_window (&h_slider2);
+
+	float slider_x_prev = slider_x;
+	float slider_y_prev = slider_y;
+	float slider_x2_prev = slider_x2;
+	float slider_y2_prev = slider_y2;
+
 	while (window.isOpen ())
 	{
 
 		window.clear (sf::Color::White);
+
+		slider_x_prev = slider_x;
+		slider_y_prev = slider_y;
+		slider_x2_prev = slider_x2;
+		slider_y2_prev = slider_y2;
+
 		sf::Event event;
 		while (window.pollEvent (event))
 		{
 			if (event.type == sf::Event::Closed)
 				window.close ();
 
+			if (event.type == sf::Event::MouseMoved)
+				w_manager.update_cursor (event.mouseMove, window.getSystemHandle ());
 
+			w_manager.handle_event (event);
 		}
 
+		if (slider_x != slider_x_prev)
+		{
+			A_el = slider_x - WINDOW_WIDTH / 2;
+			slider_x2 = WINDOW_WIDTH / 2 - A_el;
+			h_slider2.get_shape ().setPosition (WINDOW_WIDTH / 2 - A_el, WINDOW_HEIGHT / 2);
+		}
 
+		if (slider_x2 != slider_x2_prev)
+		{
+			A_el = WINDOW_WIDTH / 2 - slider_x2;
+			slider_x = WINDOW_WIDTH / 2 + A_el;
+			h_slider.get_shape ().setPosition (WINDOW_WIDTH / 2 + A_el, WINDOW_HEIGHT / 2);
+		}
+
+		if (slider_y != slider_y_prev)
+		{
+			B_el = slider_y - WINDOW_HEIGHT / 2;
+			slider_y2 = WINDOW_HEIGHT / 2 - B_el;
+			v_slider2.get_shape ().setPosition (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 - B_el);
+		}
+
+		if (slider_y2 != slider_y2_prev)
+		{
+			B_el = WINDOW_HEIGHT / 2 - slider_y2;
+			slider_y = WINDOW_HEIGHT + B_el;
+			v_slider.get_shape ().setPosition (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 + B_el);
+		}
+
+		C = sqrtf (sqr (A_el) - sqr (B_el));
+
+		A_hyp = sqr (C) / A_el;
+		B_hyp = sqrtf (sqr (C) + sqr (A_hyp));
+
+		el.set_radius_x (A_el);
+		el.set_radius_y (B_el);
+		el.update ();
+		
+		hyp.set_a (A_hyp);
+		hyp.set_b (B_hyp);
+		hyp.update ();
+
+		dot_x = ((A_el * A_hyp) * sqrtf (sqr (B_el) + sqr (B_hyp))) / sqrtf (sqr (A_el * B_hyp) + sqr (B_el * A_hyp));
+		dot_y = (B_el * sqrtf (sqr (A_el) - sqr (dot_x))) / A_el;
+
+		r_circ = sqrt (sqr (dot_x) + sqr (dot_y));
+
+		cross1.setPosition (WINDOW_WIDTH / 2 + dot_x, WINDOW_HEIGHT / 2 + dot_y);
+		cross2.setPosition (WINDOW_WIDTH / 2 - dot_x, WINDOW_HEIGHT / 2 + dot_y);
+		cross3.setPosition (WINDOW_WIDTH / 2 + dot_x, WINDOW_HEIGHT / 2 - dot_y);
+		cross4.setPosition (WINDOW_WIDTH / 2 - dot_x, WINDOW_HEIGHT / 2 - dot_y);
+
+		shape.setRadius (r_circ - thickness);
+		shape.setPosition (sf::Vector2f (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
+		shape.setOrigin (sf::Vector2f (shape.getLocalBounds ().width / 2, shape.getLocalBounds ().height / 2));
+
+		E_el = C / A_el;
+		E_hyp = C / A_hyp;
+		S_el = 2 * 2.1415 * sqrtf ((sqr (A_el) + sqr (B_el)) / 2);
+
+		sprintf_s <32> (buffer, "E (el) = %.2f", E_el);
+		E_el_text.setString (buffer);
+
+		sprintf_s <32> (buffer, "S (el) = %.2f", S_el);
+		S_el_text.setString (buffer);
+
+		sprintf_s <32> (buffer, "E (hyp) = %.2f", E_hyp);
+		E_hyp_text.setString (buffer);
+
+		sprintf_s <32> (buffer, "R (circ) = %.2f", r_circ);
+		R_c_text.setString (buffer);
+
+		sprintf_s <32> (buffer, "S (circ) = %.2f", 2 * 3.1415 * r_circ);
+		S_c_text.setString (buffer);
+
+		X_axis.setSize (sf::Vector2f (A_el * 2, thickness));
+		Y_axis.setSize (sf::Vector2f (thickness, B_el * 2));
+
+		X_axis.setPosition (sf::Vector2f (WINDOW_WIDTH / 2 - A_el, WINDOW_HEIGHT / 2 - thickness));
+		Y_axis.setPosition (sf::Vector2f (WINDOW_WIDTH / 2 - thickness, WINDOW_HEIGHT / 2 - B_el));
+
+		window.draw (X_axis);
+		window.draw (Y_axis);
 
 		hyp.render (window);
 		el.render (window);
+		window.draw (shape);
+
+		window.draw (cross1);
+		window.draw (cross2);
+		window.draw (cross3);
+		window.draw (cross4);
+
+		window.draw (E_el_text);
+		window.draw (S_el_text);
+		window.draw (E_hyp_text);
+		window.draw (R_c_text);
+		window.draw (S_c_text);
+
+
 		window.display ();
 	}
 

@@ -138,6 +138,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="horisontal_slider.cpp" />
+    <ClCompile Include="Menu\abstract_window.cpp" />
+    <ClCompile Include="Menu\cursor_handler.cpp" />
+    <ClCompile Include="Menu\pch.cpp" />
+    <ClCompile Include="Menu\rectangular_window.cpp" />
+    <ClCompile Include="Menu\sprite_button.cpp" />
+    <ClCompile Include="Menu\sprite_window.cpp" />
+    <ClCompile Include="Menu\text_button.cpp" />
+    <ClCompile Include="Menu\window_manager.cpp" />
     <ClCompile Include="SelbaWard\BitmapFont.cpp" />
     <ClCompile Include="SelbaWard\BitmapText.cpp" />
     <ClCompile Include="SelbaWard\ConsoleScreen.cpp" />
@@ -156,8 +165,20 @@
     <ClCompile Include="SelbaWard\Sprite3d.cpp" />
     <ClCompile Include="SelbaWard\Starfield.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="vertical_slider.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Fokz210\game_engine\SFML_Menu\framework.h" />
+    <ClInclude Include="horisontal_slider.h" />
+    <ClInclude Include="Menu\abstract_window.h" />
+    <ClInclude Include="Menu\cursor_handler.h" />
+    <ClInclude Include="Menu\Menu.h" />
+    <ClInclude Include="Menu\pch.h" />
+    <ClInclude Include="Menu\rectangular_window.h" />
+    <ClInclude Include="Menu\sprite_button.h" />
+    <ClInclude Include="Menu\sprite_window.h" />
+    <ClInclude Include="Menu\text_button.h" />
+    <ClInclude Include="Menu\window_manager.h" />
     <ClInclude Include="SelbaWard.hpp" />
     <ClInclude Include="SelbaWard\BitmapFont.hpp" />
     <ClInclude Include="SelbaWard\BitmapText.hpp" />
@@ -180,8 +201,11 @@
     <ClInclude Include="SelbaWard\Sprite3d.hpp" />
     <ClInclude Include="SelbaWard\Starfield.hpp" />
     <ClInclude Include="SelbaWard\TileMap.hpp" />
+    <ClInclude Include="vertical_slider.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Menu\Doxygen" />
+    <None Include="Menu\Doxygen.bak" />
     <None Include="SelbaWard\TileMap.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
