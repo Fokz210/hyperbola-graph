@@ -1,10 +1,12 @@
 #include "horisontal_slider.h"
 
-horisontal_slider::horisontal_slider (const sf::RectangleShape & shape, float & x, float y) :
+horisontal_slider::horisontal_slider (const sf::RectangleShape & shape, float & x, float y, float xmin, float xmax) :
 	rectangular_window (shape),
 	x_ (x),
 	pressed_ (false),
-	offset_ ()
+	offset_ (),
+	xmin_ (xmin),
+	xmax_ (xmax)
 {
 	shape_.setOrigin (sf::Vector2f (shape_.getSize ().x / 2, shape_.getSize().y / 2));
 	shape_.setPosition (x, y);
@@ -34,6 +36,12 @@ bool horisontal_slider::mouse_move (sf::Event::MouseMoveEvent event)
 {
 	if (pressed_)
 	{
+		if (!sf::Mouse::isButtonPressed (sf::Mouse::Left))
+			pressed_ = false;
+
+		if (event.x > xmax_ || event.x  < xmin_)
+			return false;
+
 		shape_.setPosition (event.x - offset_.x, shape_.getPosition().y);
 		x_ = event.x - offset_.x;
 	}

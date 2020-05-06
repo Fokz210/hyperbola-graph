@@ -1,10 +1,12 @@
 #include "vertical_slider.h"
 
-vertical_slider::vertical_slider (const sf::RectangleShape & shape, float x, float & y) :
+vertical_slider::vertical_slider (const sf::RectangleShape & shape, float x, float & y, float ymin, float ymax) :
 	rectangular_window (shape),
 	y_ (y),
 	pressed_ (false),
-	offset_ ()
+	offset_ (),
+	ymin_ (ymin),
+	ymax_ (ymax)
 {
 	shape_.setOrigin (sf::Vector2f (shape_.getSize ().x / 2, shape_.getSize ().y / 2));
 	shape_.setPosition (x, y);
@@ -34,9 +36,17 @@ bool vertical_slider::mouse_move (sf::Event::MouseMoveEvent event)
 {
 	if (pressed_)
 	{
+		if (!sf::Mouse::isButtonPressed (sf::Mouse::Left))
+			pressed_ = false;
+
+		/*if (y_ > ymax_ || y_ < ymin_)
+			return false;*/
+
 		shape_.setPosition (shape_.getPosition ().x , event.y - offset_.y);
 		y_ = event.y - offset_.y;
 	}
+
+	if (!sf::Mouse::isButtonPressed (sf::Mouse::Left))
 
 	return false;
 }

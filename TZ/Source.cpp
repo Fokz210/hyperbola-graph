@@ -156,7 +156,7 @@ int main ()
 	float dot_radius = 5.f;
 	float thickness = 2.f;
 
-	sf::RenderWindow window (sf::VideoMode (WINDOW_WIDTH, WINDOW_HEIGHT), "Test");
+	sf::RenderWindow window (sf::VideoMode (WINDOW_WIDTH, WINDOW_HEIGHT), "Test", sf::Style::Titlebar | sf::Style::Close);
 
 	hyperbola hyp (1, 1, 1, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, WINDOW_WIDTH / 2);
 	hyp.set_color (sf::Color::Black);
@@ -218,13 +218,15 @@ int main ()
 	E_el_text.setCharacterSize (20);
 	E_el_text.setFillColor (sf::Color::Black);
 
-	sf::Text E_hyp_text(E_el_text), S_el_text (E_el_text), S_c_text (E_el_text), R_c_text (E_el_text);
+	sf::Text E_hyp_text(E_el_text), S_el_text (E_el_text), S_c_text (E_el_text), R_c_text (E_el_text), A_el_text (E_el_text), B_el_text (E_el_text);
 
 	E_el_text.setPosition (10, 10);
 	S_el_text.setPosition (10, 30);
 	E_hyp_text.setPosition (WINDOW_WIDTH - 150, 10);
 	S_c_text.setPosition (10, WINDOW_HEIGHT - 30);
 	R_c_text.setPosition (10, WINDOW_HEIGHT - 50);
+	A_el_text.setPosition (WINDOW_WIDTH - 150, WINDOW_HEIGHT - 50);
+	B_el_text.setPosition (WINDOW_WIDTH - 150, WINDOW_HEIGHT - 30);
 
 	char buffer[32] = "";
 
@@ -235,16 +237,16 @@ int main ()
 	float slider_x = WINDOW_WIDTH / 2 + A_el;
 	sf::RectangleShape slider_shape;
 	slider_shape.setSize (sf::Vector2f (50.f, 50.f));
-	horisontal_slider h_slider (slider_shape, slider_x, WINDOW_HEIGHT / 2);
+	horisontal_slider h_slider (slider_shape, slider_x, WINDOW_HEIGHT / 2, WINDOW_WIDTH / 2 + 5, WINDOW_WIDTH);
 
 	float slider_y = WINDOW_HEIGHT / 2 + B_el;
-	vertical_slider v_slider (slider_shape, WINDOW_WIDTH / 2, slider_y);
+	vertical_slider v_slider (slider_shape, WINDOW_WIDTH / 2, slider_y, WINDOW_HEIGHT / 2 + 5, WINDOW_HEIGHT);
 
 	float slider_x2 = WINDOW_WIDTH / 2 - A_el;
-	horisontal_slider h_slider2 (slider_shape, slider_x2, WINDOW_HEIGHT / 2);
+	horisontal_slider h_slider2 (slider_shape, slider_x2, WINDOW_HEIGHT / 2, 0, WINDOW_WIDTH / 2 - 5);
 
 	float slider_y2 = WINDOW_HEIGHT / 2 - B_el;
-	vertical_slider v_slider2 (slider_shape, WINDOW_WIDTH / 2, slider_y2);
+	vertical_slider v_slider2 (slider_shape, WINDOW_WIDTH / 2, slider_y2, 0, WINDOW_HEIGHT / 2 - 5);
 
 	window_manager w_manager;
 	w_manager.add_window (&h_slider);
@@ -353,6 +355,12 @@ int main ()
 		sprintf_s <32> (buffer, "S (circ) = %.2f", 2 * 3.1415 * r_circ);
 		S_c_text.setString (buffer);
 
+		sprintf_s <32> (buffer, "A (el) = %.2f", A_el);
+		A_el_text.setString (buffer);
+
+		sprintf_s <32> (buffer, "B (el) = %.2f", B_el);
+		B_el_text.setString (buffer);
+
 		X_axis.setSize (sf::Vector2f (A_el * 2, thickness));
 		Y_axis.setSize (sf::Vector2f (thickness, B_el * 2));
 
@@ -376,6 +384,8 @@ int main ()
 		window.draw (E_hyp_text);
 		window.draw (R_c_text);
 		window.draw (S_c_text);
+		window.draw (A_el_text);
+		window.draw (B_el_text);
 
 
 		window.display ();
