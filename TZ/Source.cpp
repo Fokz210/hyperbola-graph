@@ -1,4 +1,5 @@
 ﻿#include <cmath>
+#include <cstdio>
 #include <SFML/Graphics.hpp>
 #include "SelbaWard.hpp"
 #include "horisontal_slider.h"
@@ -236,6 +237,7 @@ int main ()
 
 	float slider_x = WINDOW_WIDTH / 2 + A_el;
 	sf::RectangleShape slider_shape;
+	slider_shape.setFillColor (sf::Color::Red);
 	slider_shape.setSize (sf::Vector2f (50.f, 50.f));
 	horisontal_slider h_slider (slider_shape, slider_x, WINDOW_HEIGHT / 2, WINDOW_WIDTH / 2 + 5, WINDOW_WIDTH);
 
@@ -258,6 +260,12 @@ int main ()
 	float slider_y_prev = slider_y;
 	float slider_x2_prev = slider_x2;
 	float slider_y2_prev = slider_y2;
+
+	sf::CircleShape F1;
+	F1.setFillColor (sf::Color (0, 200, 0));
+	F1.setRadius (thickness * 2);
+
+	sf::CircleShape F2 (F1);
 
 	while (window.isOpen ())
 	{
@@ -287,22 +295,21 @@ int main ()
 			slider_x2 = WINDOW_WIDTH / 2 - A_el;
 			h_slider2.get_shape ().setPosition (WINDOW_WIDTH / 2 - A_el, WINDOW_HEIGHT / 2);
 		}
-
-		if (slider_x2 != slider_x2_prev)
+		else if (slider_x2 != slider_x2_prev)
 		{
 			A_el = WINDOW_WIDTH / 2 - slider_x2;
 			slider_x = WINDOW_WIDTH / 2 + A_el;
 			h_slider.get_shape ().setPosition (WINDOW_WIDTH / 2 + A_el, WINDOW_HEIGHT / 2);
 		}
-
-		if (slider_y != slider_y_prev)
+		else if (slider_y != slider_y_prev)
 		{
 			B_el = slider_y - WINDOW_HEIGHT / 2;
 			slider_y2 = WINDOW_HEIGHT / 2 - B_el;
 			v_slider2.get_shape ().setPosition (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 - B_el);
-		}
 
-		if (slider_y2 != slider_y2_prev)
+		/*	printf_s ("[INFO] slider_y is changed to %f. changing B_el to %f and slider_y2 to %f.\n", slider_y, B_el, slider_y2);*/
+		}
+		else if (slider_y2 != slider_y2_prev)
 		{
 			B_el = WINDOW_HEIGHT / 2 - slider_y2;
 			slider_y = WINDOW_HEIGHT + B_el;
@@ -364,8 +371,11 @@ int main ()
 		X_axis.setSize (sf::Vector2f (A_el * 2, thickness));
 		Y_axis.setSize (sf::Vector2f (thickness, B_el * 2));
 
-		X_axis.setPosition (sf::Vector2f (WINDOW_WIDTH / 2 - A_el, WINDOW_HEIGHT / 2 - thickness));
-		Y_axis.setPosition (sf::Vector2f (WINDOW_WIDTH / 2 - thickness, WINDOW_HEIGHT / 2 - B_el));
+		X_axis.setPosition (sf::Vector2f (WINDOW_WIDTH / 2 - A_el, WINDOW_HEIGHT / 2 - thickness / 2));
+		Y_axis.setPosition (sf::Vector2f (WINDOW_WIDTH / 2 - thickness / 2, WINDOW_HEIGHT / 2 - B_el));
+
+		F1.setPosition (WINDOW_WIDTH / 2 - C - thickness * 2, WINDOW_HEIGHT / 2 - thickness * 2);
+		F2.setPosition (WINDOW_WIDTH / 2 + C - thickness * 2, WINDOW_HEIGHT / 2 - thickness * 2);
 
 		window.draw (X_axis);
 		window.draw (Y_axis);
@@ -379,6 +389,9 @@ int main ()
 		window.draw (cross3);
 		window.draw (cross4);
 
+		window.draw (F1);
+		window.draw (F2);
+
 		window.draw (E_el_text);
 		window.draw (S_el_text);
 		window.draw (E_hyp_text);
@@ -387,6 +400,7 @@ int main ()
 		window.draw (A_el_text);
 		window.draw (B_el_text);
 
+		//w_manager.draw_windows (window);
 
 		window.display ();
 	}
