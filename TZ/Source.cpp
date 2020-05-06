@@ -152,7 +152,12 @@ protected:
 //					E_hyp = C / A_hyp - эксцентриситет гиперболы			   |
 // ----------------------------------------------------------------------------/
 
-int main ()
+int __stdcall WinMain (
+	HINSTANCE hInstance,
+	HINSTANCE hPrevInstance,
+	LPSTR     lpCmdLine,
+	int       nShowCmd
+	)
 {
 	float dot_radius = 5.f;
 	float thickness = 2.f;
