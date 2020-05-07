@@ -2,7 +2,6 @@
 #define sqr(a)  ((a) * (a))
 #endif 
 
-
 #include "constants.h"
 
 // Размер окна

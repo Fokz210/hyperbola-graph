@@ -141,6 +141,7 @@
     <ClCompile Include="ellipse.h" />
     <ClCompile Include="horisontal_slider.cpp" />
     <ClCompile Include="hyperbola.h" />
+    <ClCompile Include="info_overlay.cpp" />
     <ClCompile Include="Menu\abstract_window.cpp" />
     <ClCompile Include="Menu\cursor_handler.cpp" />
     <ClCompile Include="Menu\pch.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="..\..\Fokz210\game_engine\SFML_Menu\framework.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="horisontal_slider.h" />
+    <ClInclude Include="info_overlay.h" />
     <ClInclude Include="Menu\abstract_window.h" />
     <ClInclude Include="Menu\cursor_handler.h" />
     <ClInclude Include="Menu\Menu.h" />
