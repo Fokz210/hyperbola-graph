@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClCompile Include="ellipse.h" />
     <ClCompile Include="horisontal_slider.cpp" />
+    <ClCompile Include="hyperbola.h" />
     <ClCompile Include="Menu\abstract_window.cpp" />
     <ClCompile Include="Menu\cursor_handler.cpp" />
     <ClCompile Include="Menu\pch.cpp" />
@@ -167,10 +168,12 @@
     <ClCompile Include="SelbaWard\Sprite3d.cpp" />
     <ClCompile Include="SelbaWard\Starfield.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="model.cpp" />
     <ClCompile Include="vertical_slider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Fokz210\game_engine\SFML_Menu\framework.h" />
+    <ClInclude Include="constants.h" />
     <ClInclude Include="horisontal_slider.h" />
     <ClInclude Include="Menu\abstract_window.h" />
     <ClInclude Include="Menu\cursor_handler.h" />
