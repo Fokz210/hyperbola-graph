@@ -52,6 +52,8 @@ model::model (window_manager& manager, float window_width, float window_height) 
 
 void model::init (int A_ellipse, int B_ellipse, float thickness)
 {
+	m_thickness = thickness;
+
 	hyp.set_color (sf::Color::Black);
 	hyp.set_thickness (thickness);
 
@@ -225,9 +227,10 @@ void model::update ()
 
 void model::draw (sf::RenderTarget& window)
 {
+	
+
 	window.draw (X_axis);
 	window.draw (Y_axis);
-
 	hyp.render (window);
 	el.render (window);
 	window.draw (shape);
@@ -239,6 +242,7 @@ void model::draw (sf::RenderTarget& window)
 
 	window.draw (F1);
 	window.draw (F2);
+
 }
 
 void model::update_resolution (float window_width, float window_height)
