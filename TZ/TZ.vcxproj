@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ellipse.h" />
     <ClCompile Include="horisontal_slider.cpp" />
     <ClCompile Include="Menu\abstract_window.cpp" />
     <ClCompile Include="Menu\cursor_handler.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="Menu\sprite_window.cpp" />
     <ClCompile Include="Menu\text_button.cpp" />
     <ClCompile Include="Menu\window_manager.cpp" />
+    <ClCompile Include="model.h" />
     <ClCompile Include="SelbaWard\BitmapFont.cpp" />
     <ClCompile Include="SelbaWard\BitmapText.cpp" />
     <ClCompile Include="SelbaWard\ConsoleScreen.cpp" />

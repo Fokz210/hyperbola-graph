@@ -105,6 +105,12 @@
     <ClCompile Include="vertical_slider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="model.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ellipse.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SelbaWard.hpp">
