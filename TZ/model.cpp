@@ -96,17 +96,23 @@ void model::init (int A_ellipse, int B_ellipse, float thickness)
 	sf::RectangleShape slider_shape;
 	slider_shape.setFillColor (sf::Color::Red);
 	slider_shape.setSize (sf::Vector2f (50.f, 50.f));
+
+	slider_shape.setOrigin (25, 25);
 	
 	h_slider.get_shape () = slider_shape;
+	h_slider.get_shape ().setPosition (slider_x, WINDOW_HEIGHT / 2);
 
 	slider_y = WINDOW_HEIGHT / 2 + B_el;
 	v_slider.get_shape () = slider_shape;
+	v_slider.get_shape ().setPosition (WINDOW_WIDTH / 2, slider_y);
 
     slider_x2 = WINDOW_WIDTH / 2 - A_el;
 	h_slider2.get_shape () = slider_shape;
+	h_slider2.get_shape ().setPosition (slider_x2, WINDOW_HEIGHT / 2);
 
 	slider_y2 = WINDOW_HEIGHT / 2 - B_el;
 	v_slider2.get_shape () = slider_shape;
+	v_slider2.get_shape ().setPosition (WINDOW_WIDTH / 2, slider_y2);
 
 	F1.setFillColor (sf::Color (0, 200, 0));
 	F1.setRadius (thickness * 2);
@@ -131,6 +137,17 @@ void model::init (int A_ellipse, int B_ellipse, float thickness)
 
 void model::update ()
 {
+#ifdef MY_DEBUGG
+	printf ("[INFO] slider_x = %f\n", slider_x);
+	printf ("[INFO] slider_y = %f\n", slider_y);
+	printf ("[INFO] slider_x2 = %f\n", slider_x2);
+	printf ("[INFO] slider_y2 = %f\n", slider_y2);
+	printf ("[INFO] slider_x_prev = %f\n", slider_x_prev);
+	printf ("[INFO] slider_y_prev = %f\n", slider_y_prev);
+	printf ("[INFO] slider_x2_prev = %f\n", slider_x2_prev);
+	printf ("[INFO] slider_y2_prev = %f\n", slider_y2_prev);
+#endif // MY_DEBUG
+
 	if (slider_x != slider_x_prev)
 	{
 		A_el = slider_x - WINDOW_WIDTH / 2;
@@ -197,6 +214,11 @@ void model::update ()
 
 	F1.setPosition (WINDOW_WIDTH / 2 - C - m_thickness * 2, WINDOW_HEIGHT / 2 - m_thickness * 2);
 	F2.setPosition (WINDOW_WIDTH / 2 + C - m_thickness * 2, WINDOW_HEIGHT / 2 - m_thickness * 2);
+
+	slider_x_prev = slider_x;
+	slider_y_prev = slider_y;
+	slider_x2_prev = slider_x2;
+	slider_y2_prev = slider_y2;
 }
 
 void model::draw (sf::RenderTarget& window)

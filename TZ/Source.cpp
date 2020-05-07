@@ -2,6 +2,7 @@
 #define sqr(a)  ((a) * (a))
 #endif 
 
+
 #include "constants.h"
 
 // Размер окна
@@ -32,7 +33,7 @@
 //					E_hyp = C / A_hyp - эксцентриситет гиперболы			   |
 // ----------------------------------------------------------------------------/
 
-int __stdcall WinMain (
+int APIENTRY WinMain (
 	HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
 	LPSTR     lpCmdLine,
@@ -67,7 +68,9 @@ int __stdcall WinMain (
 	window_manager w_manager;
 
 	model first_model (w_manager);
-	first_model.init (100, 100, thickness);
+	first_model.init (300, 300, thickness);
+	model second_model (w_manager);
+	second_model.init (100, 100, thickness);
 
 	while (window.isOpen ())
 	{
@@ -86,6 +89,7 @@ int __stdcall WinMain (
 		}
 
 		first_model.update ();
+		second_model.update ();
 
 		sprintf_s <32> (buffer, "E (el) = %.2f", first_model.E_el);
 		E_el_text.setString (buffer);
@@ -108,9 +112,12 @@ int __stdcall WinMain (
 		sprintf_s <32> (buffer, "B (el) = %.2f", first_model.B_el);
 		B_el_text.setString (buffer);
 
-		//w_manager.draw_windows (window);
+#ifdef MY_DEBUG
+		w_manager.draw_windows (window);
+#endif // MY_DEBUG
 
 		first_model.draw (window);
+		second_model.draw (window);
 
 		window.draw (E_el_text);
 		window.draw (S_el_text);

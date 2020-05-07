@@ -1,5 +1,7 @@
 #pragma once
 #include "Menu/rectangular_window.h"
+#include "constants.h"
+
 class vertical_slider :
 	public rectangular_window
 {

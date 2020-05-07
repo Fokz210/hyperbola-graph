@@ -46,8 +46,13 @@ bool vertical_slider::mouse_move (sf::Event::MouseMoveEvent event)
 		}
 			*/
 
+
 		shape_.setPosition (shape_.getPosition ().x , event.y - offset_.y);
 		y_ = event.y - offset_.y;
+
+#ifdef MY_DEBUG
+		printf ("[info] Changed y to %f\n", y_);
+#endif // MY_DEBUG
 	}
 
 	return false;
