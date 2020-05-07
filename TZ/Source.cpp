@@ -16,6 +16,7 @@
 #include "ellipse.h"
 #include "hyperbola.h"
 #include "model.h"
+#include "info_overlay.h"
 
 // ----------------------------------------------------------------------------\
 //						Изначально задается:                                   |
@@ -47,29 +48,16 @@ int APIENTRY WinMain (
 	sf::Font font;
 	font.loadFromFile ("font.ttf");
 
-	sf::Text E_el_text;
-	E_el_text.setFont (font);
-	E_el_text.setCharacterSize (20);
-	E_el_text.setFillColor (sf::Color::Black);
-
-	sf::Text E_hyp_text(E_el_text), S_el_text (E_el_text), S_c_text (E_el_text), R_c_text (E_el_text), A_el_text (E_el_text), B_el_text (E_el_text);
-
-	E_el_text.setPosition (10, 10);
-	S_el_text.setPosition (10, 30);
-	E_hyp_text.setPosition (WINDOW_WIDTH - 150, 10);
-	S_c_text.setPosition (10, WINDOW_HEIGHT - 30);
-	R_c_text.setPosition (10, WINDOW_HEIGHT - 50);
-	A_el_text.setPosition (WINDOW_WIDTH - 150, WINDOW_HEIGHT - 50);
-	B_el_text.setPosition (WINDOW_WIDTH - 150, WINDOW_HEIGHT - 30);
-
-	char buffer[32] = "";
-
 	window_manager w_manager;
 
 	model first_model (w_manager);
 	first_model.init (300, 300, thickness);
 	model second_model (w_manager);
 	second_model.init (100, 100, thickness);
+
+	info_overlay overlay (font, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+	overlay.init ();
 
 	while (window.isOpen ())
 	{
@@ -88,43 +76,17 @@ int APIENTRY WinMain (
 		}
 
 		first_model.update ();
-		second_model.update ();
+		//second_model.update ();
 
-		sprintf_s <32> (buffer, "E (el) = %.2f", first_model.E_el);
-		E_el_text.setString (buffer);
-
-		sprintf_s <32> (buffer, "S (el) = %.2f", first_model.S_el);
-		S_el_text.setString (buffer);
-
-		sprintf_s <32> (buffer, "E (hyp) = %.2f", first_model.E_hyp);
-		E_hyp_text.setString (buffer);
-
-		sprintf_s <32> (buffer, "R (circ) = %.2f", first_model.r_circ);
-		R_c_text.setString (buffer);
-
-		sprintf_s <32> (buffer, "S (circ) = %.2f", 2 * 3.1415 * first_model.r_circ);
-		S_c_text.setString (buffer);
-
-		sprintf_s <32> (buffer, "A (el) = %.2f", first_model.A_el);
-		A_el_text.setString (buffer);
-
-		sprintf_s <32> (buffer, "B (el) = %.2f", first_model.B_el);
-		B_el_text.setString (buffer);
+		overlay.update (first_model.E_el, first_model.S_el, first_model.E_hyp, first_model.r_circ, first_model.r_circ * 3.1415f * 2, first_model.A_el, first_model.B_el, first_model.A_hyp, first_model.B_hyp, first_model.C);
 
 #ifdef MY_DEBUG
 		w_manager.draw_windows (window);
 #endif // MY_DEBUG
 
 		first_model.draw (window);
-		second_model.draw (window);
-
-		window.draw (E_el_text);
-		window.draw (S_el_text);
-		window.draw (E_hyp_text);
-		window.draw (R_c_text);
-		window.draw (S_c_text);
-		window.draw (A_el_text);
-		window.draw (B_el_text);
+		//second_model.draw (window);
+		overlay.draw (window);
 
 		window.display ();
 	}

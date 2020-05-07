@@ -111,14 +111,14 @@
     <ClCompile Include="ellipse.h">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="hyperbola.h">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="info_overlay.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hyperbola.h">
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
