@@ -10,11 +10,15 @@
 class model
 {
 public:
-	model (window_manager& manager);
+	model (window_manager& manager, float window_width, float window_height);
 
 	void init (int A_ellipse, int B_ellipse, float thickness);
 	void update ();
 	void draw (sf::RenderTarget& window);
+
+	void update_resolution (float window_width, float window_height);
+
+	float m_window_width, m_window_height;
 
 	window_manager& m_manager;
 	hyperbola hyp;

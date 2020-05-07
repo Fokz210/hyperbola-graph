@@ -16,7 +16,6 @@ public:
 
 	virtual cursor get_cursor () override;
 
-protected:
 	float & y_;
 	float ymin_, ymax_;
 	bool pressed_;

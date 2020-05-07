@@ -48,13 +48,13 @@ void info_overlay::init ()
 	B_el_text.setPosition (gap_x, gap_y + 75);
 	C_el_text.setPosition (gap_x, gap_y + 100);
 
-	E_hyp_text.setPosition (WINDOW_WIDTH - 150 - gap_x, gap_y);
-	A_hyp_text.setPosition (WINDOW_WIDTH - 150 - gap_x, gap_y + 25);
-	B_hyp_text.setPosition (WINDOW_WIDTH - 150 - gap_x, gap_y + 50);
-	C_hyp_text.setPosition (WINDOW_WIDTH - 150 - gap_x, gap_y + 75);
+	E_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y);
+	A_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 25);
+	B_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 50);
+	C_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 75);
 
-	S_c_text.setPosition (gap_x, WINDOW_HEIGHT - gap_y - 25);
-	R_c_text.setPosition (gap_x, WINDOW_HEIGHT - gap_y - 50);
+	S_c_text.setPosition (gap_x, m_window_height - gap_y - 25);
+	R_c_text.setPosition (gap_x, m_window_height - gap_y - 50);
 }
 
 void info_overlay::update (float E_el, float S_el, float E_hyp, float r_circ, float S_sirc, float A_el, float B_el, float A_hyp, float B_hyp, float C)
@@ -115,10 +115,16 @@ void info_overlay::update_resolution (float window_width, float window_height)
 	m_window_width = window_width;
 
 	E_el_text.setPosition (gap_x, gap_y);
-	S_el_text.setPosition (gap_x, gap_y + 10);
-	E_hyp_text.setPosition (WINDOW_WIDTH - 120 - gap_x, gap_y);
-	S_c_text.setPosition (gap_x, WINDOW_HEIGHT - gap_y - 20);
-	R_c_text.setPosition (gap_x, WINDOW_HEIGHT - gap_y - 30);
-	A_el_text.setPosition (WINDOW_WIDTH - 120 - gap_x, WINDOW_HEIGHT - 20 - gap_y);
-	B_el_text.setPosition (WINDOW_WIDTH - 120 - gap_x, WINDOW_HEIGHT - 10 - gap_y);
+	S_el_text.setPosition (gap_x, gap_y + 25);
+	A_el_text.setPosition (gap_x, gap_y + 50);
+	B_el_text.setPosition (gap_x, gap_y + 75);
+	C_el_text.setPosition (gap_x, gap_y + 100);
+
+	E_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y);
+	A_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 25);
+	B_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 50);
+	C_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 75);
+
+	S_c_text.setPosition (gap_x, m_window_height - gap_y - 25);
+	R_c_text.setPosition (gap_x, m_window_height - gap_y - 50);
 }

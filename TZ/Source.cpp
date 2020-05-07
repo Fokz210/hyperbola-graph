@@ -43,17 +43,18 @@ int APIENTRY WinMain (
 	float dot_radius = 5.f;
 	float thickness = 2.f;
 
-	sf::RenderWindow window (sf::VideoMode (WINDOW_WIDTH, WINDOW_HEIGHT), "Test", sf::Style::Titlebar | sf::Style::Close);
+	sf::RenderWindow window (sf::VideoMode (WINDOW_WIDTH, WINDOW_HEIGHT), "Test");
 
+	window.setView (window.getDefaultView ());
 	sf::Font font;
 	font.loadFromFile ("font.ttf");
 
 	window_manager w_manager;
 
-	model first_model (w_manager);
-	first_model.init (300, 300, thickness);
-	model second_model (w_manager);
-	second_model.init (100, 100, thickness);
+	model first_model (w_manager, window.getSize().x, window.getSize().y);
+	first_model.init (100, 100, thickness);
+	model second_model (w_manager, window.getSize ().x, window.getSize ().y);
+	//second_model.init (100, 100, thickness);
 
 	info_overlay overlay (font, WINDOW_WIDTH, WINDOW_HEIGHT);
 
@@ -71,6 +72,16 @@ int APIENTRY WinMain (
 
 			if (event.type == sf::Event::MouseMoved)
 				w_manager.update_cursor (event.mouseMove, window.getSystemHandle ());
+
+			if (event.type == sf::Event::Resized)
+			{
+				sf::FloatRect visibleArea (0, 0, event.size.width, event.size.height);
+				window.setView (sf::View (visibleArea));
+
+				overlay.update_resolution (event.size.width, event.size.height);
+				first_model.update_resolution (event.size.width, event.size.height);
+				
+			}
 
 			w_manager.handle_event (event);
 		}
