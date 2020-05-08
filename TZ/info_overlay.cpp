@@ -6,6 +6,8 @@ info_overlay::info_overlay (sf::Font font, float window_width, float window_heig
 	buffer (""),
 	E_el_text (),
 	E_hyp_text (),
+	P_hyp_text (),
+	S_hyp_text (),
 	A_hyp_text (),
 	B_hyp_text (),
 	P_el_text (),
@@ -28,6 +30,8 @@ void info_overlay::init ()
 	E_el_text.setFont (m_font);
 	E_el_text.setCharacterSize (20);
 	E_el_text.setFillColor (sf::Color (25, 118, 194));
+
+	E_el_text.setStyle (sf::Text::Bold);
 	
 	P_el_text = E_el_text;
 	S_el_text = E_el_text;
@@ -43,6 +47,8 @@ void info_overlay::init ()
 	E_hyp_text = E_el_text;
 	E_hyp_text.setFillColor (sf::Color::Black);
 	A_hyp_text = E_hyp_text;
+	P_hyp_text = E_hyp_text;
+	S_hyp_text = E_hyp_text;
 	B_hyp_text = E_hyp_text;
 	C_hyp_text = E_hyp_text;
 
@@ -54,12 +60,14 @@ void info_overlay::init ()
 	C_el_text.setPosition (gap_x, gap_y + 125);
 
 	E_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y);
-	A_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 25);
-	B_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 50);
-	C_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 75);
+	P_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 25);
+	S_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 50);
+	A_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 75);
+	B_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 100);
+	C_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 125);
 
-	P_c_text.setPosition (gap_x, m_window_height - gap_y - 25);
-	S_c_text.setPosition (gap_x, m_window_height - gap_y - 50);
+	S_c_text.setPosition (gap_x, m_window_height - gap_y - 25);
+	P_c_text.setPosition (gap_x, m_window_height - gap_y - 50);
 	R_c_text.setPosition (gap_x, m_window_height - gap_y - 75);
 }
 
@@ -74,6 +82,12 @@ void info_overlay::update (float E_el, float P_el, float S_el, float E_hyp, floa
 
 	sprintf_s <32> (buffer, "E (hyp) = %.2f", E_hyp);
 	E_hyp_text.setString (buffer);
+
+	sprintf_s <32> (buffer, "P (hyp) = ");
+	P_hyp_text.setString (buffer);
+
+	sprintf_s <32> (buffer, "S (hyp) = ");
+	S_hyp_text.setString (buffer);
 
 	sprintf_s <32> (buffer, "R (circ) = %.2f", r_circ);
 	R_c_text.setString (buffer);
@@ -121,6 +135,8 @@ void info_overlay::draw (sf::RenderTarget& window)
 	window.draw (B_el_text);
 	window.draw (C_el_text);
 	window.draw (C_hyp_text);
+	window.draw (P_hyp_text);
+	window.draw (S_hyp_text);
 }
 
 void info_overlay::update_resolution (float window_width, float window_height)
@@ -128,7 +144,6 @@ void info_overlay::update_resolution (float window_width, float window_height)
 	m_window_height = window_height;
 	m_window_width = window_width;
 
-	
 	E_el_text.setPosition (gap_x, gap_y);
 	P_el_text.setPosition (gap_x, gap_y + 25);
 	S_el_text.setPosition (gap_x, gap_y + 50);
@@ -137,11 +152,13 @@ void info_overlay::update_resolution (float window_width, float window_height)
 	C_el_text.setPosition (gap_x, gap_y + 125);
 
 	E_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y);
-	A_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 25);
-	B_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 50);
-	C_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 75);
+	P_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 25);
+	S_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 50);
+	A_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 75);
+	B_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 100);
+	C_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 125);
 
-	P_c_text.setPosition (gap_x, m_window_height - gap_y - 25);
-	S_c_text.setPosition (gap_x, m_window_height - gap_y - 50);
+	S_c_text.setPosition (gap_x, m_window_height - gap_y - 25);
+	P_c_text.setPosition (gap_x, m_window_height - gap_y - 50);
 	R_c_text.setPosition (gap_x, m_window_height - gap_y - 75);
 }

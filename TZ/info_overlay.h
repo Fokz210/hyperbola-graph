@@ -21,6 +21,8 @@ protected:
 
 	sf::Text E_el_text;
 	sf::Text E_hyp_text;
+	sf::Text P_hyp_text;
+	sf::Text S_hyp_text;
 	sf::Text A_hyp_text;
 	sf::Text B_hyp_text;
 	sf::Text P_el_text; 
