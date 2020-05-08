@@ -39,12 +39,11 @@ bool vertical_slider::mouse_move (sf::Event::MouseMoveEvent event)
 		if (!sf::Mouse::isButtonPressed (sf::Mouse::Left))
 			pressed_ = false;
 
-	/*	if (y_ > ymax_ || y_ < ymin_)
+		if (event.y >= ymax_ || event.y <= ymin_)
 		{
-			printf_s ("[WARN] Out of the limits. y_ = %f, ymax_ = %f, ymin = %f.\n", y_, ymax_, ymin_);
 			return false;
 		}
-			*/
+			
 
 
 		shape_.setPosition (shape_.getPosition ().x , event.y - offset_.y);

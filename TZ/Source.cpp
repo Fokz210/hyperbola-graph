@@ -89,7 +89,7 @@ int APIENTRY WinMain (
 		first_model.update ();
 		//second_model.update ();
 
-		overlay.update (first_model.E_el, first_model.S_el, first_model.E_hyp, first_model.r_circ, first_model.r_circ * 3.1415f * 2, first_model.A_el, first_model.B_el, first_model.A_hyp, first_model.B_hyp, first_model.C);
+		overlay.update (first_model.E_el, first_model.S_el, first_model.A_el * first_model.B_el * 3.1415 , first_model.E_hyp, first_model.r_circ, first_model.A_el, first_model.B_el, first_model.A_hyp, first_model.B_hyp, first_model.C);
 
 #ifdef MY_DEBUG
 		w_manager.draw_windows (window);

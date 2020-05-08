@@ -137,6 +137,10 @@ void model::init (int A_ellipse, int B_ellipse, float thickness)
 	m_manager.add_window (&h_slider2);
 
 
+	v_slider.ymax_ = m_window_height / 2 + A_el;
+	v_slider2.ymin_ = m_window_height / 2 - A_el;
+	h_slider.xmin_ = m_window_width / 2 + B_el;
+	h_slider2.xmax_ = m_window_width / 2 - B_el;
 }
 
 void model::update ()
@@ -157,12 +161,18 @@ void model::update ()
 		A_el = slider_x - m_window_width / 2;
 		slider_x2 = m_window_width / 2 - A_el;
 		h_slider2.get_shape ().setPosition (m_window_width / 2 - A_el, m_window_height / 2);
+
+		v_slider.ymax_ = m_window_height / 2 + A_el;
+		v_slider2.ymin_ = m_window_height / 2 - A_el;
 	}
 	else if (slider_x2 != slider_x2_prev)
 	{
 		A_el = m_window_width / 2 - slider_x2;
 		slider_x = m_window_width / 2 + A_el;
 		h_slider.get_shape ().setPosition (m_window_width / 2 + A_el, m_window_height / 2);
+
+		v_slider.ymax_ = m_window_height / 2 + A_el;
+		v_slider2.ymin_ = m_window_height / 2 - A_el;
 	}
 	else if (slider_y != slider_y_prev)
 	{
@@ -170,6 +180,8 @@ void model::update ()
 		slider_y2 = m_window_height / 2 - B_el;
 		v_slider2.get_shape ().setPosition (m_window_width / 2, m_window_height / 2 - B_el);
 
+		h_slider.xmin_ = m_window_width / 2 + B_el;
+		h_slider2.xmax_ = m_window_width / 2 - B_el;
 		/*	printf_s ("[INFO] slider_y is changed to %f. changing B_el to %f and slider_y2 to %f.\n", slider_y, B_el, slider_y2);*/
 	}
 	else if (slider_y2 != slider_y2_prev)
@@ -177,6 +189,9 @@ void model::update ()
 		B_el = m_window_height / 2 - slider_y2;
 		slider_y = m_window_height + B_el;
 		v_slider.get_shape ().setPosition (m_window_width / 2, m_window_height / 2 + B_el);
+
+		h_slider.xmin_ = m_window_width / 2 + B_el;
+		h_slider2.xmax_ = m_window_width / 2 - B_el;
 	}
 
 	C = sqrtf (sqr (A_el) - sqr (B_el));
@@ -280,4 +295,9 @@ void model::update_resolution (float window_width, float window_height)
 	slider_y_prev = slider_y;
 	slider_x2_prev = slider_x2;
 	slider_y2_prev = slider_y2;
+
+	v_slider.ymax_ = m_window_height / 2 + A_el;
+	v_slider2.ymin_ = m_window_height / 2 - A_el;
+	h_slider.xmin_ = m_window_width / 2 + B_el;
+	h_slider2.xmax_ = m_window_width / 2 - B_el;
 }
