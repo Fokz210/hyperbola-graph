@@ -129,12 +129,12 @@ void info_overlay::update_resolution (float window_width, float window_height)
 	m_window_width = window_width;
 
 	
-
 	E_el_text.setPosition (gap_x, gap_y);
 	P_el_text.setPosition (gap_x, gap_y + 25);
-	A_el_text.setPosition (gap_x, gap_y + 50);
-	B_el_text.setPosition (gap_x, gap_y + 75);
-	C_el_text.setPosition (gap_x, gap_y + 100);
+	S_el_text.setPosition (gap_x, gap_y + 50);
+	A_el_text.setPosition (gap_x, gap_y + 75);
+	B_el_text.setPosition (gap_x, gap_y + 100);
+	C_el_text.setPosition (gap_x, gap_y + 125);
 
 	E_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y);
 	A_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 25);
@@ -142,5 +142,6 @@ void info_overlay::update_resolution (float window_width, float window_height)
 	C_hyp_text.setPosition (m_window_width - 150 - gap_x, gap_y + 75);
 
 	P_c_text.setPosition (gap_x, m_window_height - gap_y - 25);
-	R_c_text.setPosition (gap_x, m_window_height - gap_y - 50);
+	S_c_text.setPosition (gap_x, m_window_height - gap_y - 50);
+	R_c_text.setPosition (gap_x, m_window_height - gap_y - 75);
 }
