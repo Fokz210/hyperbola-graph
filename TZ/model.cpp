@@ -156,25 +156,48 @@ void model::update ()
 	printf ("[INFO] slider_y2_prev = %f\n", slider_y2_prev);
 #endif // MY_DEBUG
 
+	if (B_el > A_el)
+	{
+		B_el = A_el;
+		slider_x = m_window_width / 2 + A_el;
+	}
+
+
+	if (A_el < B_el)
+	{
+		A_el = B_el;
+		slider_x = m_window_width / 2 + A_el;
+	}
+
 	if (slider_x != slider_x_prev)
 	{
 		A_el = slider_x - m_window_width / 2;
+		
+			
 		slider_x2 = m_window_width / 2 - A_el;
 		h_slider2.get_shape ().setPosition (m_window_width / 2 - A_el, m_window_height / 2);
 
 		v_slider.ymax_ = m_window_height / 2 + A_el;
 		v_slider2.ymin_ = m_window_height / 2 - A_el;
 	}
-	else if (slider_x2 != slider_x2_prev)
+
+	if (slider_x2 != slider_x2_prev)
 	{
 		A_el = m_window_width / 2 - slider_x2;
+		if (A_el < B_el)
+		{
+			A_el = B_el;
+			slider_x2 = m_window_width / 2 - A_el;
+		}
+
 		slider_x = m_window_width / 2 + A_el;
 		h_slider.get_shape ().setPosition (m_window_width / 2 + A_el, m_window_height / 2);
 
 		v_slider.ymax_ = m_window_height / 2 + A_el;
 		v_slider2.ymin_ = m_window_height / 2 - A_el;
 	}
-	else if (slider_y != slider_y_prev)
+
+	if (slider_y != slider_y_prev)
 	{
 		B_el = slider_y - m_window_height / 2;
 		slider_y2 = m_window_height / 2 - B_el;
@@ -184,7 +207,8 @@ void model::update ()
 		h_slider2.xmax_ = m_window_width / 2 - B_el;
 		/*	printf_s ("[INFO] slider_y is changed to %f. changing B_el to %f and slider_y2 to %f.\n", slider_y, B_el, slider_y2);*/
 	}
-	else if (slider_y2 != slider_y2_prev)
+
+	 if (slider_y2 != slider_y2_prev)
 	{
 		B_el = m_window_height / 2 - slider_y2;
 		slider_y = m_window_height + B_el;
