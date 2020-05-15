@@ -145,7 +145,7 @@ void model::init (int A_ellipse, int B_ellipse, float thickness)
 
 void model::update ()
 {
-#ifdef MY_DEBUGG
+#ifdef MY_DEBUG
 	printf ("[INFO] slider_x = %f\n", slider_x);
 	printf ("[INFO] slider_y = %f\n", slider_y);
 	printf ("[INFO] slider_x2 = %f\n", slider_x2);
