@@ -6,7 +6,8 @@ vertical_slider::vertical_slider (const sf::RectangleShape & shape, float x, flo
 	pressed_ (false),
 	offset_ (),
 	ymin_ (ymin),
-	ymax_ (ymax)
+	ymax_ (ymax),
+	locked_ (false)
 {
 	shape_.setOrigin (sf::Vector2f (shape_.getSize ().x / 2, shape_.getSize ().y / 2));
 	shape_.setPosition (x, y);
@@ -34,7 +35,7 @@ bool vertical_slider::mouse_button_released (sf::Event::MouseButtonEvent event)
 
 bool vertical_slider::mouse_move (sf::Event::MouseMoveEvent event)
 {
-	if (pressed_)
+	if (pressed_ && !locked_)
 	{
 		if (!sf::Mouse::isButtonPressed (sf::Mouse::Left))
 			pressed_ = false;
@@ -57,8 +58,15 @@ bool vertical_slider::mouse_move (sf::Event::MouseMoveEvent event)
 	return false;
 }
 
+void vertical_slider::lock ()
+{
+	locked_ = true;
+}
+
 cursor vertical_slider::get_cursor ()
 {
+	if (locked_)
+		return cursor::NORMAL;
 	return cursor::HAND;
 }
 

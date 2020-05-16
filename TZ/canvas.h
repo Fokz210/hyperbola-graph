@@ -11,6 +11,11 @@ public:
 	{	
 		return m_sprite;
 	}
+	
+	operator sf::RenderTexture & ()
+	{
+		return *m_texture_ptr;
+	}
 
 	void draw (const sf::Drawable & drawable);
 	void display ();

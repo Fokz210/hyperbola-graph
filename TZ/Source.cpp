@@ -46,6 +46,7 @@ int APIENTRY WinMain (
 	sf::RenderWindow window (sf::VideoMode (WINDOW_WIDTH, WINDOW_HEIGHT), "Test");
 
 	window.setView (window.getDefaultView ());
+
 	sf::Font font;
 	font.loadFromFile ("font.ttf");
 
@@ -57,6 +58,8 @@ int APIENTRY WinMain (
 	//second_model.init (100, 100, thickness);
 
 	info_overlay overlay (font, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+	w_manager.add_window (&overlay);
 
 	overlay.init ();
 
@@ -87,17 +90,15 @@ int APIENTRY WinMain (
 		}
 
 		first_model.update ();
-		//second_model.update ();
 
 		overlay.update (first_model.E_el, first_model.S_el, first_model.A_el * first_model.B_el * 3.1415 , first_model.E_hyp, first_model.r_circ, first_model.A_el, first_model.B_el, first_model.A_hyp, first_model.B_hyp, first_model.C);
 
-#ifdef MY_DEBUG
-		w_manager.draw_windows (window);
-#endif // MY_DEBUG
-
 		first_model.draw (window);
-		//second_model.draw (window);
-		overlay.draw (window);
+
+		w_manager.draw_windows (window);
+
+		if (sf::Keyboard::isKeyPressed (sf::Keyboard::Delete))
+			first_model.lock ();
 
 		window.display ();
 	}

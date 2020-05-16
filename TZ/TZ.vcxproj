@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="canvas.cpp" />
     <ClCompile Include="ellipse.h" />
     <ClCompile Include="horisontal_slider.cpp" />
     <ClCompile Include="hyperbola.h" />
@@ -174,6 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Fokz210\game_engine\SFML_Menu\framework.h" />
+    <ClInclude Include="canvas.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="horisontal_slider.h" />
     <ClInclude Include="info_overlay.h" />

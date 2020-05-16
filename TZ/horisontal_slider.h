@@ -15,9 +15,13 @@ public:
 
 	virtual cursor get_cursor () override;
 
+	void lock ();
+
 	float & x_;
 	bool pressed_;
 	float xmin_, xmax_;
 	sf::Vector2f offset_;
+
+	bool locked_;
 };
 

@@ -6,6 +6,7 @@
 #include "hyperbola.h"
 #include "ellipse.h"
 #include "constants.h"
+#include "canvas.h"
 
 class model
 {
@@ -17,6 +18,8 @@ public:
 	void draw (sf::RenderTarget& window);
 
 	void update_resolution (float window_width, float window_height);
+
+	void lock ();
 
 	float m_window_width, m_window_height;
 
@@ -57,5 +60,7 @@ public:
 	float dot_radius;
 
 	char buffer[32];
+
+	std::vector <std::vector<abstract_window *>::iterator> slider_iterators;
 };
 

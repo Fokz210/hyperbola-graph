@@ -14,11 +14,15 @@ public:
 
 	virtual bool mouse_move (sf::Event::MouseMoveEvent event) override;
 
+	void lock ();
+
 	virtual cursor get_cursor () override;
 
 	float & y_;
 	float ymin_, ymax_;
 	bool pressed_;
 	sf::Vector2f offset_;
+
+	bool locked_;
 };
 

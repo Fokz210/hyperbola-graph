@@ -120,6 +120,9 @@
     <ClCompile Include="hyperbola.h">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="canvas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SelbaWard.hpp">
@@ -228,6 +231,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="info_overlay.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="canvas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -6,7 +6,8 @@ horisontal_slider::horisontal_slider (const sf::RectangleShape & shape, float & 
 	pressed_ (false),
 	offset_ (),
 	xmin_ (xmin),
-	xmax_ (xmax)
+	xmax_ (xmax),
+	locked_ (false)
 {
 	shape_.setOrigin (sf::Vector2f (shape_.getSize ().x / 2, shape_.getSize().y / 2));
 	shape_.setPosition (x, y);
@@ -34,7 +35,7 @@ bool horisontal_slider::mouse_button_released (sf::Event::MouseButtonEvent event
 
 bool horisontal_slider::mouse_move (sf::Event::MouseMoveEvent event)
 {
-	if (pressed_)
+	if (pressed_ && !locked_)
 	{
 		if (!sf::Mouse::isButtonPressed (sf::Mouse::Left))
 			pressed_ = false;
@@ -51,6 +52,14 @@ bool horisontal_slider::mouse_move (sf::Event::MouseMoveEvent event)
 
 cursor horisontal_slider::get_cursor ()
 {
+	if (locked_)
+		return cursor::NORMAL;
+
 	return cursor::HAND;
+}
+
+void horisontal_slider::lock ()
+{
+	locked_ = true;
 }
 

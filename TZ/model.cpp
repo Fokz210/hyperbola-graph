@@ -4,8 +4,7 @@
 #define sqr(a)  ((a) * (a))
 #endif 
 
-
-model::model (window_manager& manager, float window_width, float window_height) :
+model::model (window_manager & manager, float window_width, float window_height) :
 	m_window_width (window_width),
 	m_window_height (window_height),
 	m_manager (manager),
@@ -46,7 +45,8 @@ model::model (window_manager& manager, float window_width, float window_height) 
 	slider_y2_prev (),
 	buffer (""),
 	m_thickness (),
-	dot_radius (5.f)
+	dot_radius (5.f),
+	slider_iterators ()
 {
 }
 
@@ -98,7 +98,7 @@ void model::init (int A_ellipse, int B_ellipse, float thickness)
 
 	slider_x = m_window_width / 2 + A_el;
 	sf::RectangleShape slider_shape;
-	slider_shape.setFillColor (sf::Color::Red);
+	slider_shape.setFillColor (sf::Color::Transparent);
 	slider_shape.setSize (sf::Vector2f (50.f, 50.f));
 
 	slider_shape.setOrigin (25, 25);
@@ -131,11 +131,10 @@ void model::init (int A_ellipse, int B_ellipse, float thickness)
 	slider_x2_prev = slider_x2;
 	slider_y2_prev = slider_y2;
 
-	m_manager.add_window (&h_slider);
-	m_manager.add_window (&v_slider);
-	m_manager.add_window (&v_slider2);
-	m_manager.add_window (&h_slider2);
-
+	slider_iterators.push_back(m_manager.add_window (&h_slider));
+	slider_iterators.push_back(m_manager.add_window (&v_slider));
+	slider_iterators.push_back(m_manager.add_window (&h_slider2));
+	slider_iterators.push_back(m_manager.add_window (&v_slider2));
 
 	v_slider.ymax_ = m_window_height / 2 + A_el;
 	v_slider2.ymin_ = m_window_height / 2 - A_el;
@@ -325,3 +324,13 @@ void model::update_resolution (float window_width, float window_height)
 	h_slider.xmin_ = m_window_width / 2 + B_el;
 	h_slider2.xmax_ = m_window_width / 2 - B_el;
 }
+
+void model::lock ()
+{
+	h_slider.lock ();
+	h_slider2.lock ();
+	v_slider.lock ();
+	v_slider2.lock ();
+}
+
+
