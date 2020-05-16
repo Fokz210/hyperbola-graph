@@ -57,7 +57,7 @@ int APIENTRY WinMain (
 	model second_model (w_manager, window.getSize ().x, window.getSize ().y);
 	//second_model.init (100, 100, thickness);
 
-	info_overlay overlay (font, WINDOW_WIDTH, WINDOW_HEIGHT);
+	info_overlay overlay (font, WINDOW_WIDTH, WINDOW_HEIGHT, first_model);
 
 	w_manager.add_window (&overlay);
 
@@ -91,14 +91,11 @@ int APIENTRY WinMain (
 
 		first_model.update ();
 
-		overlay.update (first_model.E_el, first_model.S_el, first_model.A_el * first_model.B_el * 3.1415 , first_model.E_hyp, first_model.r_circ, first_model.A_el, first_model.B_el, first_model.A_hyp, first_model.B_hyp, first_model.C);
+		overlay.update ();
 
 		first_model.draw (window);
 
 		w_manager.draw_windows (window);
-
-		if (sf::Keyboard::isKeyPressed (sf::Keyboard::Delete))
-			first_model.lock ();
 
 		window.display ();
 	}
