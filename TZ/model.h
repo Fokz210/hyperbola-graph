@@ -20,6 +20,12 @@ public:
 	void update_resolution (float window_width, float window_height);
 
 	void lock ();
+	void unlock ();
+	void reset (int a, int b);
+	void hide ();
+	void show ();
+
+	void set_scale (float scale);
 
 	float m_window_width, m_window_height;
 
@@ -36,6 +42,8 @@ public:
 
 	sf::CircleShape F1, F2;
 
+	sw::Spline angle;
+
 	float A_el;
 	float B_el;
 	float C;
@@ -48,6 +56,7 @@ public:
 	float E_hyp;
 	float S_el;
 	float S_c;
+	float Phi;
 
 	float slider_x, slider_x2, slider_y, slider_y2;
 	float slider_x_prev;
@@ -60,6 +69,10 @@ public:
 	float dot_radius;
 
 	char buffer[32];
+
+	bool m_hidden;
+
+	float m_scale;
 
 	std::vector <std::vector<abstract_window *>::iterator> slider_iterators;
 };

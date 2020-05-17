@@ -33,6 +33,7 @@ void info_block::init ()
 	P_c_text.setFillColor (sf::Color (235, 122, 40));
 	R_c_text = P_c_text;
 	S_c_text = P_c_text;
+	Phi_text = P_c_text;
 	
 	E_hyp_text = E_el_text;
 	E_hyp_text.setFillColor (sf::Color::Black);
@@ -49,31 +50,32 @@ void info_block::init ()
 	S_c_text.setPosition (gap_x, gap_y + character_size + 10);
 	P_c_text.setPosition (gap_x, gap_y + character_size * 2 + 10);
 	R_c_text.setPosition (gap_x, gap_y + character_size * 3 + 10);
+	Phi_text.setPosition (gap_x, gap_y + character_size * 4 + 10);
 
-	E_el_text.setPosition (gap_x, gap_y + character_size * 4 + 15);
-	P_el_text.setPosition (gap_x, gap_y + character_size * 5 + 15);
-	S_el_text.setPosition (gap_x, gap_y + character_size * 6 + 15);
-	A_el_text.setPosition (gap_x, gap_y + character_size * 7 + 15);
-	B_el_text.setPosition (gap_x, gap_y + character_size * 8 + 15);
-	C_el_text.setPosition (gap_x, gap_y + character_size * 9 + 15);
+	E_el_text.setPosition (gap_x, gap_y + character_size * 5 + 15);
+	P_el_text.setPosition (gap_x, gap_y + character_size * 6 + 15);
+	S_el_text.setPosition (gap_x, gap_y + character_size * 7 + 15);
+	A_el_text.setPosition (gap_x, gap_y + character_size * 8 + 15);
+	B_el_text.setPosition (gap_x, gap_y + character_size * 9 + 15);
+	C_el_text.setPosition (gap_x, gap_y + character_size * 10 + 15);
 
-	E_hyp_text.setPosition (gap_x, gap_y + character_size * 10 + 20);
-	P_hyp_text.setPosition (gap_x, gap_y + character_size * 11 + 20);
-	S_hyp_text.setPosition (gap_x, gap_y + character_size * 12 + 20);
-	A_hyp_text.setPosition (gap_x, gap_y + character_size * 13 + 20);
-	B_hyp_text.setPosition (gap_x, gap_y + character_size * 14 + 20);
-	C_hyp_text.setPosition (gap_x, gap_y + character_size * 15 + 20);
+	E_hyp_text.setPosition (gap_x, gap_y + character_size * 11 + 20);
+	P_hyp_text.setPosition (gap_x, gap_y + character_size * 12 + 20);
+	S_hyp_text.setPosition (gap_x, gap_y + character_size * 13 + 20);
+	A_hyp_text.setPosition (gap_x, gap_y + character_size * 14 + 20);
+	B_hyp_text.setPosition (gap_x, gap_y + character_size * 15 + 20);
+	C_hyp_text.setPosition (gap_x, gap_y + character_size * 16 + 20);
 }
 
 void info_block::update ()
 {
-	sprintf_s <32> (buffer, "E (el) = %4.2f", m_model.E_el);
+	sprintf_s <32> (buffer, "E (el) = %.2f", m_model.E_el);
 	E_el_text.setString (buffer);
 
-	sprintf_s <32> (buffer, "P (el) = %4.2f", m_model.A_el * m_model.B_el * 3.1415);
+	sprintf_s <32> (buffer, "P (el) = %.2f", m_model.A_el * m_model.B_el * 3.1415);
 	P_el_text.setString (buffer);
 
-	sprintf_s <32> (buffer, "E (hyp) = %4.2f", m_model.E_hyp);
+	sprintf_s <32> (buffer, "E (hyp) = %.2f", m_model.E_hyp);
 	E_hyp_text.setString (buffer);
 
 	sprintf_s <32> (buffer, "P (hyp) = ");
@@ -82,35 +84,38 @@ void info_block::update ()
 	sprintf_s <32> (buffer, "S (hyp) = ");
 	S_hyp_text.setString (buffer);
 
-	sprintf_s <32> (buffer, "R (circ) = %4.2f", m_model.r_circ);
+	sprintf_s <32> (buffer, "R (circ) = %.2f", m_model.r_circ);
 	R_c_text.setString (buffer);
 
-	sprintf_s <32> (buffer, "P (circ) = %4.2f", 2 * 3.1415 * m_model.r_circ);
+	sprintf_s <32> (buffer, "P (circ) = %.2f", 2 * 3.1415 * m_model.r_circ);
 	P_c_text.setString (buffer);
 
-	sprintf_s <32> (buffer, "A (el) = %4.2f", m_model.A_el);
+	sprintf_s <32> (buffer, "A (el) = %.2f", m_model.A_el);
 	A_el_text.setString (buffer);
 
-	sprintf_s <32> (buffer, "B (el) = %4.2f", m_model.B_el);
+	sprintf_s <32> (buffer, "B (el) = %.2f", m_model.B_el);
 	B_el_text.setString (buffer);
 
-	sprintf_s <32> (buffer, "A (hyp) = %4.2f", m_model.A_hyp);
+	sprintf_s <32> (buffer, "A (hyp) = %.2f", m_model.A_hyp);
 	A_hyp_text.setString (buffer);
 
-	sprintf_s <32> (buffer, "B (hyp) = %4.2f", m_model.B_hyp);
+	sprintf_s <32> (buffer, "B (hyp) = %.2f", m_model.B_hyp);
 	B_hyp_text.setString (buffer);
 
-	sprintf_s <32> (buffer, "C (el) = %4.2f", m_model.C);
+	sprintf_s <32> (buffer, "C (el) = %.2f", m_model.C);
 	C_el_text.setString (buffer);
 
-	sprintf_s <32> (buffer, "C (hyp) = %4.2f", m_model.C);
+	sprintf_s <32> (buffer, "C (hyp) = %.2f", m_model.C);
 	C_hyp_text.setString (buffer);
 
-	sprintf_s <32> (buffer, "S (circ) = %4.2f", 3.1415 * m_model.r_circ * m_model.r_circ);
+	sprintf_s <32> (buffer, "S (circ) = %.2f", 3.1415 * m_model.r_circ * m_model.r_circ);
 	S_c_text.setString (buffer);
 
-	sprintf_s <32> (buffer, "S (el) = %4.2f", m_model.S_el);
+	sprintf_s <32> (buffer, "S (el) = %.2f", m_model.S_el);
 	S_el_text.setString (buffer);
+
+	sprintf_s <32> (buffer, "Phi = %.2f", m_model.Phi);
+	Phi_text.setString (buffer);
 }
 
 void info_block::draw (sf::RenderTarget & window)
@@ -130,6 +135,7 @@ void info_block::draw (sf::RenderTarget & window)
 	window.draw (C_hyp_text);
 	window.draw (P_hyp_text);
 	window.draw (S_hyp_text);
+	window.draw (Phi_text);
 	window.draw (m_title);
 }
 

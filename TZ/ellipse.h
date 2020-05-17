@@ -12,7 +12,8 @@ public:
 		radius_y_ (radius_y),
 		offset_x_ (offset_x),
 		offset_y_ (offset_y),
-		shape_ (polygons)
+		shape_ (polygons),
+		scale_ (1.f)
 	{
 		shape_.setClosed (true);
 	}
@@ -22,7 +23,7 @@ public:
 		int i = 0;
 		for (float angle = 0; angle < 3.1415f * 2 && i < 100; angle += 3.1415f * 2.f / polygons_)
 		{
-			shape_[i++] = sf::Vector2f (offset_x_ + cosf (angle) * radius_x_, offset_y_ + sinf (angle) * radius_y_);
+			shape_[i++] = sf::Vector2f (offset_x_ + cosf (angle) * radius_x_ * scale_, offset_y_ + sinf (angle) * radius_y_ * scale_);
 		}
 		shape_.update ();
 	}
@@ -37,6 +38,7 @@ public:
 	void set_position (sf::Vector2f position) { offset_x_ = position.x; offset_y_ = position.y; }
 	void set_color (sf::Color color) { shape_.setColor (color); }
 	void set_thickness (float thickness) { shape_.setThickness (thickness); }
+	void set_scale (float scale);
 
 	float get_radius_x () { return radius_x_; }
 	float get_radius_y () { return radius_y_; }
@@ -49,4 +51,5 @@ protected:
 	float radius_x_, radius_y_;
 	float offset_x_, offset_y_;
 	sw::Spline shape_;
+	float scale_;
 };

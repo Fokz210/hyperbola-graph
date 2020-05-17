@@ -32,6 +32,11 @@ void rectangular_window::set_shape (const sf::RectangleShape & shape)
 	shape_ = shape;
 }
 
+void rectangular_window::set_position (const sf::Vector2f & position)
+{
+	shape_.setPosition (position);
+}
+
 void rectangular_window::draw (sf::RenderTarget & target)
 {
 	target.draw (shape_);

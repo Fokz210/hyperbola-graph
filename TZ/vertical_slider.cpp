@@ -15,12 +15,18 @@ vertical_slider::vertical_slider (const sf::RectangleShape & shape, float x, flo
 
 bool vertical_slider::global_mouse_button_released (sf::Event::MouseButtonEvent event)
 {
+	if (locked_)
+		return false;
+
 	pressed_ = false;
 	return false;
 }
 
 bool vertical_slider::mouse_button_pressed (sf::Event::MouseButtonEvent event)
 {
+	if (locked_)
+		return false;
+
 	pressed_ = true;
 	offset_ = sf::Vector2f (event.x - shape_.getPosition ().x, event.y - shape_.getPosition ().y);
 
@@ -29,6 +35,9 @@ bool vertical_slider::mouse_button_pressed (sf::Event::MouseButtonEvent event)
 
 bool vertical_slider::mouse_button_released (sf::Event::MouseButtonEvent event)
 {
+	if (locked_)
+		return false;
+
 	pressed_ = false;
 	return false;
 }
@@ -44,8 +53,6 @@ bool vertical_slider::mouse_move (sf::Event::MouseMoveEvent event)
 		{
 			return false;
 		}
-			
-
 
 		shape_.setPosition (shape_.getPosition ().x , event.y - offset_.y);
 		y_ = event.y - offset_.y;
@@ -61,6 +68,11 @@ bool vertical_slider::mouse_move (sf::Event::MouseMoveEvent event)
 void vertical_slider::lock ()
 {
 	locked_ = true;
+}
+
+void vertical_slider::unlock ()
+{
+	locked_ = false;
 }
 
 cursor vertical_slider::get_cursor ()

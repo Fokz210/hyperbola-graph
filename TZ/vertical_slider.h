@@ -15,8 +15,10 @@ public:
 	virtual bool mouse_move (sf::Event::MouseMoveEvent event) override;
 
 	void lock ();
+	void unlock ();
 
 	virtual cursor get_cursor () override;
+
 
 	float & y_;
 	float ymin_, ymax_;

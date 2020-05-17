@@ -16,6 +16,7 @@ public:
 	virtual cursor get_cursor () override;
 
 	void lock ();
+	void unlock ();
 
 	float & x_;
 	bool pressed_;

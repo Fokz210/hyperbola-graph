@@ -46,7 +46,10 @@ model::model (window_manager & manager, float window_width, float window_height)
 	buffer (""),
 	m_thickness (),
 	dot_radius (5.f),
-	slider_iterators ()
+	slider_iterators (),
+	m_hidden (false),
+	Phi (),
+	angle (2)
 {
 }
 
@@ -54,6 +57,11 @@ void model::init (int A_ellipse, int B_ellipse, float thickness)
 {
 	m_thickness = thickness;
 
+	angle.setColor (sf::Color::Black);
+	angle.setThickness (thickness);
+
+	angle[0] = sf::Vector2f (m_window_width / 2, m_window_height / 2);
+	
 	hyp.set_color (sf::Color::Black);
 	hyp.set_thickness (thickness);
 
@@ -158,63 +166,58 @@ void model::update ()
 	if (B_el > A_el)
 	{
 		B_el = A_el;
-		slider_x = m_window_width / 2 + A_el;
+		slider_y = m_window_height / 2 + B_el * m_scale;
+		slider_y2 = m_window_height / 2 - B_el * m_scale;
 	}
-
 
 	if (A_el < B_el)
 	{
 		A_el = B_el;
-		slider_x = m_window_width / 2 + A_el;
+		slider_x = m_window_width / 2 + A_el * m_scale;
+		slider_x2 = m_window_width / 2 - A_el * m_scale;
 	}
 
 	if (slider_x != slider_x_prev)
 	{
-		A_el = slider_x - m_window_width / 2;
+		A_el = (slider_x - m_window_width / 2) / m_scale;
 		
-			
-		slider_x2 = m_window_width / 2 - A_el;
-		h_slider2.get_shape ().setPosition (m_window_width / 2 - A_el, m_window_height / 2);
+		slider_x2 = m_window_width / 2 - A_el * m_scale;
+		h_slider2.get_shape ().setPosition (m_window_width / 2 - A_el * m_scale, m_window_height / 2);
 
-		v_slider.ymax_ = m_window_height / 2 + A_el;
-		v_slider2.ymin_ = m_window_height / 2 - A_el;
+		v_slider.ymax_ = m_window_height / 2 + A_el * m_scale;
+		v_slider2.ymin_ = m_window_height / 2 - A_el * m_scale;
 	}
 
 	if (slider_x2 != slider_x2_prev)
 	{
-		A_el = m_window_width / 2 - slider_x2;
-		if (A_el < B_el)
-		{
-			A_el = B_el;
-			slider_x2 = m_window_width / 2 - A_el;
-		}
+		A_el = (m_window_width / 2 - slider_x2) / m_scale;
+		
+		slider_x = m_window_width / 2 + A_el * m_scale;
+		h_slider.get_shape ().setPosition (m_window_width / 2 + A_el * m_scale, m_window_height / 2);
 
-		slider_x = m_window_width / 2 + A_el;
-		h_slider.get_shape ().setPosition (m_window_width / 2 + A_el, m_window_height / 2);
-
-		v_slider.ymax_ = m_window_height / 2 + A_el;
-		v_slider2.ymin_ = m_window_height / 2 - A_el;
+		v_slider.ymax_ = m_window_height / 2 + A_el * m_scale;
+		v_slider2.ymin_ = m_window_height / 2 - A_el * m_scale;
 	}
 
 	if (slider_y != slider_y_prev)
 	{
-		B_el = slider_y - m_window_height / 2;
-		slider_y2 = m_window_height / 2 - B_el;
-		v_slider2.get_shape ().setPosition (m_window_width / 2, m_window_height / 2 - B_el);
+		B_el = (slider_y - m_window_height / 2) / m_scale;
+		slider_y2 = m_window_height / 2 - B_el * m_scale;
+		v_slider2.get_shape ().setPosition (m_window_width / 2, m_window_height / 2 - B_el * m_scale);
 
-		h_slider.xmin_ = m_window_width / 2 + B_el;
-		h_slider2.xmax_ = m_window_width / 2 - B_el;
+		h_slider.xmin_ = m_window_width / 2 + B_el * m_scale;
+		h_slider2.xmax_ = m_window_width / 2 - B_el * m_scale;
 		/*	printf_s ("[INFO] slider_y is changed to %f. changing B_el to %f and slider_y2 to %f.\n", slider_y, B_el, slider_y2);*/
 	}
 
 	 if (slider_y2 != slider_y2_prev)
 	{
-		B_el = m_window_height / 2 - slider_y2;
-		slider_y = m_window_height + B_el;
-		v_slider.get_shape ().setPosition (m_window_width / 2, m_window_height / 2 + B_el);
+		B_el = (m_window_height / 2 - slider_y2) / m_scale;
+		slider_y = m_window_height + B_el * m_scale;
+		v_slider.get_shape ().setPosition (m_window_width / 2, m_window_height / 2 + B_el * m_scale);
 
-		h_slider.xmin_ = m_window_width / 2 + B_el;
-		h_slider2.xmax_ = m_window_width / 2 - B_el;
+		h_slider.xmin_ = m_window_width / 2 + B_el * m_scale;
+		h_slider2.xmax_ = m_window_width / 2 - B_el * m_scale;
 	}
 
 	C = sqrtf (sqr (A_el) - sqr (B_el));
@@ -233,14 +236,20 @@ void model::update ()
 	dot_x = ((A_el * A_hyp) * sqrtf (sqr (B_el) + sqr (B_hyp))) / sqrtf (sqr (A_el * B_hyp) + sqr (B_el * A_hyp));
 	dot_y = (B_el * sqrtf (sqr (A_el) - sqr (dot_x))) / A_el;
 
+	angle[1] = sf::Vector2f (m_window_width / 2 + dot_x, m_window_height / 2 - dot_y);
+
+	angle.update ();
+
+	Phi = atan2f (dot_x, dot_y);
+
 	r_circ = sqrt (sqr (dot_x) + sqr (dot_y));
 
-	cross1.setPosition (m_window_width / 2 + dot_x, m_window_height / 2 + dot_y);
-	cross2.setPosition (m_window_width / 2 - dot_x, m_window_height / 2 + dot_y);
-	cross3.setPosition (m_window_width / 2 + dot_x, m_window_height / 2 - dot_y);
-	cross4.setPosition (m_window_width / 2 - dot_x, m_window_height / 2 - dot_y);
+	cross1.setPosition (m_window_width / 2 + dot_x * m_scale, m_window_height / 2 + dot_y * m_scale);
+	cross2.setPosition (m_window_width / 2 - dot_x * m_scale, m_window_height / 2 + dot_y * m_scale);
+	cross3.setPosition (m_window_width / 2 + dot_x * m_scale, m_window_height / 2 - dot_y * m_scale);
+	cross4.setPosition (m_window_width / 2 - dot_x * m_scale, m_window_height / 2 - dot_y * m_scale);
 
-	shape.setRadius (r_circ - m_thickness);
+	shape.setRadius (r_circ * m_scale - m_thickness);
 	shape.setOrigin (sf::Vector2f (shape.getLocalBounds ().width / 2, shape.getLocalBounds ().height / 2));
 	shape.setPosition (sf::Vector2f (m_window_width / 2, m_window_height / 2));
 
@@ -248,14 +257,14 @@ void model::update ()
 	E_hyp = C / A_hyp;
 	S_el = 2 * 2.1415 * sqrtf ((sqr (A_el) + sqr (B_el)) / 2);
 
-	X_axis.setSize (sf::Vector2f (A_el * 2, m_thickness));
-	Y_axis.setSize (sf::Vector2f (m_thickness, B_el * 2));
+	X_axis.setSize (sf::Vector2f (A_el * 2 * m_scale, m_thickness));
+	Y_axis.setSize (sf::Vector2f (m_thickness, B_el * 2 * m_scale));
 
-	X_axis.setPosition (sf::Vector2f (m_window_width / 2 - A_el, m_window_height / 2 - m_thickness / 2));
-	Y_axis.setPosition (sf::Vector2f (m_window_width / 2 - m_thickness / 2, m_window_height / 2 - B_el));
+	X_axis.setPosition (sf::Vector2f (m_window_width / 2 - A_el * m_scale, m_window_height / 2 - m_thickness / 2));
+	Y_axis.setPosition (sf::Vector2f (m_window_width / 2 - m_thickness / 2, m_window_height / 2 - B_el * m_scale));
 
-	F1.setPosition (m_window_width / 2 - C - m_thickness * 2, m_window_height / 2 - m_thickness * 2);
-	F2.setPosition (m_window_width / 2 + C - m_thickness * 2, m_window_height / 2 - m_thickness * 2);
+	F1.setPosition (m_window_width / 2 - C * m_scale - m_thickness * 2, m_window_height / 2 - m_thickness * 2);
+	F2.setPosition (m_window_width / 2 + C* m_scale - m_thickness * 2, m_window_height / 2 - m_thickness * 2);
 
 	slider_x_prev = slider_x;
 	slider_y_prev = slider_y;
@@ -263,9 +272,12 @@ void model::update ()
 	slider_y2_prev = slider_y2;
 }
 
-void model::draw (sf::RenderTarget& window)
+void model::draw (sf::RenderTarget & window)
 {
-	
+	if (m_hidden)
+		return;
+
+	window.draw (angle);
 
 	window.draw (X_axis);
 	window.draw (Y_axis);
@@ -280,6 +292,7 @@ void model::draw (sf::RenderTarget& window)
 
 	window.draw (F1);
 	window.draw (F2);
+
 
 }
 
@@ -319,9 +332,9 @@ void model::update_resolution (float window_width, float window_height)
 	slider_x2_prev = slider_x2;
 	slider_y2_prev = slider_y2;
 
-	v_slider.ymax_ = m_window_height / 2 + A_el;
-	v_slider2.ymin_ = m_window_height / 2 - A_el;
-	h_slider.xmin_ = m_window_width / 2 + B_el;
+	v_slider.ymax_ = m_window_height / 2 + A_el * m_scale;
+	v_slider2.ymin_ = m_window_height / 2 - A_el * m_scale;
+	h_slider.xmin_ = m_window_width / 2 + B_el * m_scale;
 	h_slider2.xmax_ = m_window_width / 2 - B_el;
 }
 
@@ -331,6 +344,59 @@ void model::lock ()
 	h_slider2.lock ();
 	v_slider.lock ();
 	v_slider2.lock ();
+}
+
+void model::unlock ()
+{
+	h_slider.unlock ();
+	h_slider2.unlock ();
+	v_slider.unlock ();
+	v_slider2.unlock ();
+}
+
+void model::reset (int a, int b)
+{
+	A_el = a;
+	B_el = b;
+
+	slider_x = m_window_width / 2 + A_el;
+	slider_y = m_window_height / 2 + B_el;
+	slider_x2 = m_window_width / 2 - A_el;
+	slider_y2 = m_window_height / 2 - B_el;
+
+	h_slider.get_shape ().setPosition (slider_x, m_window_height / 2);
+	v_slider.get_shape ().setPosition (m_window_width / 2, slider_y);
+	h_slider2.get_shape ().setPosition (slider_x2, m_window_height / 2);
+	v_slider2.get_shape ().setPosition (m_window_width / 2, slider_y2);
+}
+
+void model::hide ()
+{
+	lock ();
+	m_hidden = true;
+}
+
+void model::show ()
+{
+	unlock ();
+	m_hidden = false;
+}
+
+void model::set_scale (float scale)
+{
+	hyp.set_scale (scale);
+	el.set_scale (scale);
+	m_scale = scale;
+
+	slider_x = m_window_width / 2 + A_el * m_scale;
+	slider_x2 = m_window_width / 2 - A_el * m_scale;
+	slider_y = m_window_height / 2 + B_el * m_scale;
+	slider_y2 = m_window_height / 2 - B_el * m_scale;
+
+	h_slider.get_shape ().setPosition (slider_x, m_window_height / 2);
+	v_slider.get_shape ().setPosition (m_window_width / 2, slider_y);
+	h_slider2.get_shape ().setPosition (slider_x2, m_window_height / 2);
+	v_slider2.get_shape ().setPosition (m_window_width / 2, slider_y2);
 }
 
 

@@ -17,6 +17,7 @@
 #include "hyperbola.h"
 #include "model.h"
 #include "info_overlay.h"
+#include "Menu/slider.h"
 
 // ----------------------------------------------------------------------------\
 //						Изначально задается:                                   |
@@ -33,12 +34,16 @@
 //					E_hyp = C / A_hyp - эксцентриситет гиперболы			   |
 // ----------------------------------------------------------------------------/
 
+#ifndef _DEBUG
 int APIENTRY WinMain (
 	HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
 	LPSTR     lpCmdLine,
 	int       nShowCmd
 	)
+#else
+int main()
+#endif
 {
 	float dot_radius = 5.f;
 	float thickness = 2.f;
@@ -52,16 +57,16 @@ int APIENTRY WinMain (
 
 	window_manager w_manager;
 
-	model first_model (w_manager, window.getSize().x, window.getSize().y);
-	first_model.init (100, 100, thickness);
-	model second_model (w_manager, window.getSize ().x, window.getSize ().y);
-	//second_model.init (100, 100, thickness);
+	std::vector <model *> models;
+	models.push_back (nullptr);
+	models.push_back (nullptr);
 
-	info_overlay overlay (font, WINDOW_WIDTH, WINDOW_HEIGHT, first_model);
+	info_overlay overlay (font, WINDOW_WIDTH, WINDOW_HEIGHT, models);
 
 	w_manager.add_window (&overlay);
 
-	overlay.init ();
+	overlay.init (w_manager);
+
 
 	while (window.isOpen ())
 	{
@@ -82,22 +87,29 @@ int APIENTRY WinMain (
 				window.setView (sf::View (visibleArea));
 
 				overlay.update_resolution (event.size.width, event.size.height);
-				first_model.update_resolution (event.size.width, event.size.height);
-				
+
+				for (auto && el : models)
+					el->update_resolution (event.size.width, event.size.height);
+
 			}
 
 			w_manager.handle_event (event);
 		}
 
-		first_model.update ();
+		for (auto && el : models)
+		{
+			if (el)
+			{
+				el->update ();
+				el->draw (window);
+			}
+		}
 
 		overlay.update ();
-
-		first_model.draw (window);
-
 		w_manager.draw_windows (window);
 
 		window.display ();
+
 	}
 
 	return 0;

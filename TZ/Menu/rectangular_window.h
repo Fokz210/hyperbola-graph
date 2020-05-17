@@ -47,6 +47,8 @@ public:
      */
     void set_shape (const sf::RectangleShape & shape);
 
+    virtual void set_position (const sf::Vector2f & position);
+
     /**
      * @brief overload of draw func.
      * 

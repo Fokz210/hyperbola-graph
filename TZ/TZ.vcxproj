@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -89,7 +89,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -139,6 +139,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="canvas.cpp" />
+    <ClCompile Include="ellipse.cpp" />
     <ClCompile Include="info_block.cpp" />
     <ClCompile Include="ellipse.h" />
     <ClCompile Include="horisontal_slider.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="Menu\cursor_handler.cpp" />
     <ClCompile Include="Menu\pch.cpp" />
     <ClCompile Include="Menu\rectangular_window.cpp" />
+    <ClCompile Include="Menu\slider.cpp" />
     <ClCompile Include="Menu\sprite_button.cpp" />
     <ClCompile Include="Menu\sprite_window.cpp" />
     <ClCompile Include="Menu\text_button.cpp" />
@@ -186,6 +188,7 @@
     <ClInclude Include="Menu\Menu.h" />
     <ClInclude Include="Menu\pch.h" />
     <ClInclude Include="Menu\rectangular_window.h" />
+    <ClInclude Include="Menu\slider.h" />
     <ClInclude Include="Menu\sprite_button.h" />
     <ClInclude Include="Menu\sprite_window.h" />
     <ClInclude Include="Menu\text_button.h" />

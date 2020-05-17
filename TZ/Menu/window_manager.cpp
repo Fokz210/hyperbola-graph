@@ -56,8 +56,7 @@ bool window_manager::handle_event (const sf::Event & event)
 
 				if (el->mouse_button_released (event.mouseButton))
 				{
-					active_ = el;
-					el->activate ();
+					
 					return true;
 				}
 			}

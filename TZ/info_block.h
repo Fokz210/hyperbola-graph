@@ -37,6 +37,7 @@ protected:
 	sf::Text B_el_text;
 	sf::Text C_el_text;
 	sf::Text C_hyp_text;
+	sf::Text Phi_text;
 
 	sf::Font m_font;
 };

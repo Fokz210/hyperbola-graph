@@ -38,7 +38,7 @@ public:
      * @param font text font
      * @param labmda function that runs when button is pressed
      */
-    text_button (float x, float y, float width, float height, sf::Color fill_color, sf::Color text_color, sf::String text, sf::Font font, T lambda);
+    text_button (float x, float y, float width, float height, sf::Color fill_color, sf::Color text_color, const char * text, sf::Font & font, T lambda);
 
     /**
      * @brief simpler constructor
@@ -68,22 +68,26 @@ public:
 
     virtual cursor get_cursor () override; //!< function that returns the cursor, which needed to display on this window
 
+    virtual void set_position (const sf::Vector2f & position) override;
+
 protected:
     sf::Text text_; //!< SFML text class
     T lambda_;      //!< lambda variable
 };
 
 template<class T>
-inline text_button<T>::text_button (float x, float y, float width, float height, sf::Color fill_color, sf::Color text_color, sf::String text, sf::Font font, T lambda) :
+inline text_button<T>::text_button (float x, float y, float width, float height, sf::Color fill_color, sf::Color text_color, const char * text, sf::Font & font, T lambda) :
     rectangular_window (x, y, width, height, fill_color),
     text_ (),
     lambda_ (lambda)
 {
+    text_.setFont (font);
+    text_.setCharacterSize (20);
+    text_.setStyle (sf::Text::Bold);
     text_.setString (text);
     text_.setFillColor (text_color);
-    text_.setFont (font);
-    text_.setOrigin (text_.getLocalBounds ().width / 2, text_.getLocalBounds ().width / 2);
-    text_.setPosition (shape_.getSize ().x + shape_.getLocalBounds ().width / 2, shape_.getSize ().y + shape_.getLocalBounds ().height / 2);
+    text_.setOrigin (text_.getLocalBounds ().width / 2, text_.getLocalBounds ().height / 2);
+    text_.setPosition (shape_.getPosition ().x + shape_.getLocalBounds ().width / 2 - 5, shape_.getPosition ().y + shape_.getLocalBounds ().height / 2 - 5);
 }
 
 template<class T>
@@ -118,11 +122,18 @@ template<class T>
 inline void text_button<T>::draw (sf::RenderTarget & target)
 {
     rectangular_window::draw (target);
-    //target.draw (text_);
+    target.draw (text_);
 }
 
 template<class T>
 inline cursor text_button<T>::get_cursor ()
 {
     return cursor (cursor::TYPE::HAND);
+}
+
+template<class T>
+inline void text_button<T>::set_position (const sf::Vector2f & position)
+{
+    rectangular_window::set_position (position);
+    text_.setPosition (sf::Vector2f (position.x + shape_.getSize ().x / 2 - 5, position.y + shape_.getSize ().y / 2 -5));
 }
