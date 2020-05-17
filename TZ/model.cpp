@@ -236,7 +236,7 @@ void model::update ()
 	dot_x = ((A_el * A_hyp) * sqrtf (sqr (B_el) + sqr (B_hyp))) / sqrtf (sqr (A_el * B_hyp) + sqr (B_el * A_hyp));
 	dot_y = (B_el * sqrtf (sqr (A_el) - sqr (dot_x))) / A_el;
 
-	angle[1] = sf::Vector2f (m_window_width / 2 + dot_x, m_window_height / 2 - dot_y);
+	angle[1] = sf::Vector2f (m_window_width / 2 + dot_x * m_scale, m_window_height / 2 - dot_y * m_scale);
 
 	angle.update ();
 
@@ -303,6 +303,8 @@ void model::update_resolution (float window_width, float window_height)
 
 	m_window_width = window_width;
 	m_window_height = window_height;
+
+	angle[0] = sf::Vector2f (m_window_width / 2, m_window_height / 2);
 
 	el.set_position (sf::Vector2f (m_window_width / 2, m_window_height / 2));
 	hyp.set_position (sf::Vector2f (m_window_width / 2, m_window_height / 2));
