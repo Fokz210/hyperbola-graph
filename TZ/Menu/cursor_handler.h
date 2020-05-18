@@ -29,6 +29,8 @@ public:
 
 	void Set (const sf::WindowHandle & aWindowHandle) const; //!< set current cursor
 
+	TYPE type_;
 private:
 	HCURSOR Cursor; //!< windows cursor handle
+	
 };

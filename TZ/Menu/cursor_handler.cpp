@@ -2,7 +2,8 @@
 #include "cursor_handler.h"
 #include <iostream>
 
-cursor::cursor (const cursor::TYPE t)
+cursor::cursor (const cursor::TYPE t) :
+	type_ (t)
 {
 	switch (t)
 	{

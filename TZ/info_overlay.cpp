@@ -159,5 +159,5 @@ void info_overlay::update_resolution  (float window_width, float window_height)
 	m_info_blocks[1]->set_position (sf::Vector2f (m_window_width - gap_x - 155, gap_y));
 
 	left.set_position (sf::Vector2f (gap_x, window_height - gap_y - 140));
-	right.set_position (sf::Vector2f (window_width + gap_x, window_height - gap_y - 140));
+	right.set_position (sf::Vector2f (window_width + gap_x - 220, window_height - gap_y - 140));
 }

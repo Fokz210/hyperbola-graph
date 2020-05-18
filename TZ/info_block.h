@@ -40,5 +40,8 @@ protected:
 	sf::Text Phi_text;
 
 	sf::Font m_font;
+
+	sf::Texture m_phi_texture;
+	sf::Sprite m_phi_sprite;
 };
 

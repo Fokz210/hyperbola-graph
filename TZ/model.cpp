@@ -240,7 +240,7 @@ void model::update ()
 
 	angle.update ();
 
-	Phi = atan2f (dot_x, dot_y);
+	Phi = atan2f (dot_x, dot_y) / 3.1415f * 180.f;
 
 	r_circ = sqrt (sqr (dot_x) + sqr (dot_y));
 
@@ -278,7 +278,7 @@ void model::draw (sf::RenderTarget & window)
 		return;
 
 	window.draw (angle);
-
+	
 	window.draw (X_axis);
 	window.draw (Y_axis);
 	hyp.render (window);

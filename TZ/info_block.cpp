@@ -1,4 +1,4 @@
-#include "info_block.h"
+﻿#include "info_block.h"
 
 
 info_block::info_block (model & info_source, sf::Font font) :
@@ -6,8 +6,14 @@ info_block::info_block (model & info_source, sf::Font font) :
 	m_model (info_source),
 	m_font (font),
 	buffer (""),
-	m_title ()
+	m_title (),
+	m_phi_texture (),
+	m_phi_sprite ()
 {
+	sf::Image img;
+	img.loadFromFile ("phi.png");
+	m_phi_texture.loadFromImage (img);
+	m_phi_sprite.setTexture (m_phi_texture, true);
 }
 
 void info_block::init ()
@@ -16,6 +22,8 @@ void info_block::init ()
 	float gap_y = shape_.getPosition ().y;
 
 	float character_size = 25;
+
+	m_phi_sprite.setPosition (gap_x + 1, gap_y + character_size * 4 + 15);
 
 	E_el_text.setFont (m_font);
 	E_el_text.setCharacterSize (20);
@@ -43,7 +51,10 @@ void info_block::init ()
 	B_hyp_text = E_hyp_text;
 	C_hyp_text = E_hyp_text;
 
-	m_title = E_hyp_text;
+	m_title.setCharacterSize (20);
+	m_title.setFillColor (sf::Color::Black);
+	m_title.setFont (m_font);
+	m_title.setStyle (sf::Text::Bold);
 
 	m_title.setPosition (gap_x, gap_y);
 
@@ -114,7 +125,7 @@ void info_block::update ()
 	sprintf_s <32> (buffer, "S (el) = %.2f", m_model.S_el);
 	S_el_text.setString (buffer);
 
-	sprintf_s <32> (buffer, "Phi = %.2f", m_model.Phi);
+	sprintf_s <32> (buffer, "   = %.2f", m_model.Phi);
 	Phi_text.setString (buffer);
 }
 
@@ -137,6 +148,7 @@ void info_block::draw (sf::RenderTarget & window)
 	window.draw (S_hyp_text);
 	window.draw (Phi_text);
 	window.draw (m_title);
+	window.draw (m_phi_sprite);
 }
 
 void info_block::set_title (const sf::String & title)

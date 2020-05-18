@@ -101,5 +101,5 @@ void window_manager::update_cursor (const sf::Event::MouseMoveEvent & event, con
 
 	for (auto && el : windows_)
 		if (el->contains (sf::Vector2f (event.x, event.y)))
-			el->get_cursor ().Set (handle);
+			if (el->get_cursor().type_ != cursor::NORMAL) el->get_cursor ().Set (handle);
 }
